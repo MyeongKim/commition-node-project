@@ -1,77 +1,309 @@
 <h1>커미션 등록 페이지</h1>
+<h5>** 주의하세요 - 등록하기 버튼을 클릭하신 뒤에는 모든 그림파일 선택을 다시 하셔야 합니다. **</h5>
 <h5>샘플 페이지를 확인해보세요.</h5>
-<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> </span><a href="/submit/sample">샘플 페이지</a>
+<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> </span><a data-toggle="modal" data-target="#myModal" >샘플 페이지</a>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">샘플 페이지</h4>
+			</div>
+			<div class="modal-body">
+				<h1>샘플 페이지</h1>
+				<div class="btn-action">
+					<a class="btn btn-danger" href="#" role="button">
+						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+					</a>
+					<a class="btn btn-default" href="#" role="button">수정</a>
+					<a class="btn btn-default" href="#" role="button">삭제</a>
+				</div>
+				<div class="commition-detail">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">작가님 정보</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3"><strong>닉네임</strong></div>
+								<div class="col-md-9">test</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>이메일</strong></div>
+								<div class="col-md-9">test@test.com</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>SNS</strong></div>
+								<div class="col-md-9">@twitter_test</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>홈페이지/블로그</strong></div>
+								<div class="col-md-9"><a href="#">http://test.my.blog.com</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">커미션 정보</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3"><strong>작업 기간</strong></div>
+								<div class="col-md-9">2주~3주</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>진행 과정</strong></div>
+								<div class="col-md-9">신청 - 입금 - 러프 - 채색 - 완성 순서입니다.</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>주의사항</strong></div>
+								<div class="col-md-9">논란이 있는 작품, 수위가 높은 작품은 신청받지 않습니다.</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>기타</strong></div>
+								<div class="col-md-9">작업 기간이 넘으면 환불해드립니다.</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>커미션 종료일</strong></div>
+								<div class="col-md-9">2015년 10월 1일</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>슬롯</strong></div>
+								<div class="col-md-9">
+									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">타입 1</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>그림 사이즈</strong></div>
+								<div class="col-md-9">900px * 900px / 72dpi </div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>타입 설명</strong></div>
+								<div class="col-md-9">반신 타입입니다.</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>가격</strong></div>
+								<div class="col-md-9">5000원</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">타입 2</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>그림 사이즈</strong></div>
+								<div class="col-md-9">500px * 500px</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>타입 설명</strong></div>
+								<div class="col-md-9">두상 타입입니다.</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>가격</strong></div>
+								<div class="col-md-9">4000원</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">타입 3</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="http://placehold.it/350x350" class="thumbnail">
+										<img src="http://placehold.it/350x350" alt="...">
+									</a>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>그림 사이즈</strong></div>
+								<div class="col-md-9">1100px * 1100px</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>타입 설명</strong></div>
+								<div class="col-md-9">전신 타입입니다.</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-md-3"><strong>가격</strong></div>
+								<div class="col-md-9">10000원</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <form id="submitForm" method="post" action="/submit" enctype="multipart/form-data" class="form-horizontal submit-form">
+	<input type="hidden" id="time" name="time">
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">닉네임</label>
+		<label class="col-sm-2 control-label">닉네임</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="Nickname">
+			<input type="text" name="nickname" class="form-control" value="{{nickname}}" placeholder="Nickname">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">이메일</label>
+		<label class="col-sm-2 control-label">이메일</label>
 		<div class="col-sm-10">
-			<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+			<input type="email" name="email" value="{{email}}" class="form-control" placeholder="Email">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">SNS</label>
+		<label class="col-sm-2 control-label">SNS</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="가지고 계신 트위터나 기타 SNS계정을 입력해주세요." aria-describedby="helpBlock">
+			<input type="text" name="sns" value="{{sns}}" class="form-control" placeholder="가지고 계신 트위터나 기타 SNS계정을 입력해주세요." aria-describedby="helpBlock">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">홈페이지/블로그</label>
+		<label class="col-sm-2 control-label">홈페이지/블로그</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="사이트 주소를 입력해주세요.">
+			<input type="text" name="homepage_blog" value="{{homepage_blog}}" class="form-control" placeholder="사이트 주소를 입력해주세요.">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
+		<label class="col-sm-2 control-label">비밀번호</label>
 		<div class="col-sm-10">
-		  <input type="password" class="form-control" id="inputPassword3" placeholder="수정/삭제시 사용될 비밀번호를 입력해주세요.">
+		  <input type="password" name="password" value="{{password}}" class="form-control" placeholder="수정/삭제시 사용될 비밀번호를 입력해주세요.">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">작업 기간</label>
+		<label class="col-sm-2 control-label">비밀번호 확인</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputEmail3" placeholder="작업 기간을 입력해주세요.">
+		  <input type="password" name="password2" value="{{password2}}" class="form-control" placeholder="비밀번호를 한번 더 입력해주세요.">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">진행과정</label>
+		<label class="col-sm-2 control-label">작업 기간</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" rows="7" placeholder="진행과정을 자유롭게 입력해주세요."></textarea>
+			<input type="text" name="time_spent" value="{{time_spent}}"class="form-control" placeholder="작업 기간을 입력해주세요.">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">주의사항</label>
+		<label class="col-sm-2 control-label">진행과정</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" rows="7" placeholder="주의사항을 자유롭게 입력해주세요."></textarea>
+			<textarea class="form-control" id="process" name="process" value="{{process}}" rows="7" placeholder="진행과정을 자유롭게 입력해주세요."></textarea>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">기타</label>
+		<label class="col-sm-2 control-label">주의사항</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" rows="7" placeholder="하고싶으신 말이 있으시다면 자유롭게 입력해주세요."></textarea>
+			<textarea class="form-control" id="warning" name="warning" value="{{warning}}" rows="7" placeholder="주의사항을 자유롭게 입력해주세요."></textarea>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">커미션 종료일</label>
+		<label class="col-sm-2 control-label">기타</label>
 		<div class="col-sm-10">
-			<input type="date" class="form-control">
+			<textarea class="form-control" id="etc" name="etc" value="{{etc}}" rows="7" placeholder="하고싶으신 말이 있으시다면 자유롭게 입력해주세요."></textarea>
 		</div>
-		<label for="inputEmail3" class="col-sm-2 control-label"></label>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">커미션 종료일</label>
+		<div class="col-sm-10">
+			<input type="date" name="end_time" value="{{end_time}}" class="form-control">
+		</div>
+		<label class="col-sm-2 control-label"></label>
 		<div class="checkbox col-sm-10">
-    		<label>
-    			<input type="checkbox"> 종료일 미설정
-    		</label>
-  		</div>
+			<label>
+				<input type="checkbox"> 종료일 미설정
+			</label>
+		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">슬롯 갯수</label>
+		<label class="col-sm-2 control-label">전체 슬롯 갯수</label>
 		<div class="col-sm-10">
-			<select class="form-control">
+			<select name="slot_full" value="{{slot_full}}" class="form-control">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -81,9 +313,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="inputEmail3" class="col-sm-2 control-label">현재 열린 슬롯</label>
+		<label class="col-sm-2 control-label">현재 열린 슬롯</label>
 		<div class="col-sm-10">
-			<select class="form-control">
+			<select name="slot_open" value="{{slot_open}}" class="form-control">
 				<option>0</option>
 				<option>1</option>
 				<option>2</option>
@@ -99,28 +331,28 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">그림파일 선택</label>
+				<label class="col-sm-2 control-label">그림파일 선택</label>
 				<div class="col-sm-10">
-					<input type="file" multiple>
-					<p class="help-block">여러 개 한꺼번에 선택하실 수 있습니다.</p>
+					<input type="file" name="type_one_files_name" multiple>
+					<p class="help-block">최대 9개 선택하실 수 있습니다.</p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">그림 사이즈</label>
+				<label class="col-sm-2 control-label">그림 사이즈</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" placeholder="그림 사이즈를 입력해주세요.">
+					<input type="text" name="type_one_files_size" value="{{type_one_files_size}}" class="form-control" placeholder="그림 사이즈를 입력해주세요.">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">타입 설명</label>
+				<label class="col-sm-2 control-label">타입 설명</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" rows="7" placeholder="타입 설명을 입력해주세요."></textarea>
+					<textarea class="form-control" id="type_one_type_desc" name="type_one_type_desc" value="{{type_one_type_desc}}" rows="7" placeholder="타입 설명을 입력해주세요."></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">가격</label>
+				<label class="col-sm-2 control-label">가격</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" placeholder="가격을 입력해주세요.">
+					<input type="text" name="type_one_price" value="{{type_one_price}}" class="form-control" placeholder="가격을 입력해주세요.">
 				</div>
 			</div>
 		</div>
@@ -131,28 +363,28 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">그림파일 선택</label>
+				<label class="col-sm-2 control-label">그림파일 선택</label>
 				<div class="col-sm-10">
-					<input type="file" multiple>
-					<p class="help-block">여러 개 한꺼번에 선택하실 수 있습니다.</p>
+					<input type="file" name="type_two_files_name" multiple>
+					<p class="help-block">최대 9개 선택하실 수 있습니다.</p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">그림 사이즈</label>
+				<label class="col-sm-2 control-label">그림 사이즈</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" placeholder="그림 사이즈를 입력해주세요.">
+					<input type="text" name="type_two_files_size" value="{{type_two_files_size}}" class="form-control" placeholder="그림 사이즈를 입력해주세요.">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">타입 설명</label>
+				<label class="col-sm-2 control-label">타입 설명</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" rows="7" placeholder="타입 설명을 입력해주세요."></textarea>
+					<textarea class="form-control" id="type_two_type_desc" name="type_two_type_desc" value="{{type_two_type_desc}}" rows="7" placeholder="타입 설명을 입력해주세요."></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">가격</label>
+				<label class="col-sm-2 control-label">가격</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" placeholder="가격을 입력해주세요.">
+					<input type="text" name="type_two_price" value="{{type_two_price}}" class="form-control" placeholder="가격을 입력해주세요.">
 				</div>
 			</div>
 		</div>
@@ -163,42 +395,51 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">그림파일 선택</label>
+				<label class="col-sm-2 control-label">그림파일 선택</label>
 				<div class="col-sm-10">
-					<input type="file" multiple>
-					<p class="help-block">여러 개 한꺼번에 선택하실 수 있습니다.</p>
+					<input type="file" name="type_three_files_name" multiple>
+					<p class="help-block">최대 9개 선택하실 수 있습니다.</p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">그림 사이즈</label>
+				<label class="col-sm-2 control-label">그림 사이즈</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" placeholder="그림 사이즈를 입력해주세요.">
+					<input type="text" name="type_three_files_size" value="{{type_three_files_size}}" class="form-control" placeholder="그림 사이즈를 입력해주세요.">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">타입 설명</label>
+				<label class="col-sm-2 control-label">타입 설명</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" rows="7" placeholder="타입 설명을 입력해주세요."></textarea>
+					<textarea class="form-control" id="type_three_type_desc" name="type_three_type_desc" value="{{type_three_type_desc}}" rows="7" placeholder="타입 설명을 입력해주세요."></textarea>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">가격</label>
+				<label class="col-sm-2 control-label">가격</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="inputEmail3" placeholder="가격을 입력해주세요.">
+					<input type="text" name="type_three_price" value="{{type_three_price}}" class="form-control" placeholder="가격을 입력해주세요.">
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">썸네일 그림 선택</label>
+				<label class="col-sm-2 control-label">썸네일 그림 선택</label>
 				<div class="col-sm-10">
-					<input type="file" multiple>
+					<input type="file" name="thumbnail_files_name" multiple>
 					<p class="help-block">메인 화면에 보일 썸네일 그림 3개를 선택해주세요.</p>
 				</div>
 	</div>
 	<div class="form-group">
 		<div class="submit-btn-div">
-	  		<button type="submit" class="btn btn-lg btn-success">등록하기</button>
+			<button type="submit" class="btn btn-lg btn-success">등록하기</button>
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+	document.getElementById("time").value = Date.now();
+	document.getElementById("process").value = "{{process}}";
+	document.getElementById("warning").value = "{{warning}}";
+	document.getElementById("etc").value = "{{etc}}";
+	document.getElementById("type_one_type_desc").value = "{{type_one_type_desc}}";
+	document.getElementById("type_two_type_desc").value = "{{type_two_type_desc}}";
+	document.getElementById("type_three_type_desc").value = "{{type_three_type_desc}}";
+</script>

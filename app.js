@@ -12,7 +12,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local'),Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/eight');
 var db = mongoose.connection;
 async = require('async');
 
@@ -28,8 +27,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
-
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -67,6 +64,18 @@ app.use(expressValidator({
     };
   }
 }));
+
+app.use(expressValidator({
+  customValidators: {
+    lengthCheck: function(param, num) {
+      return param.length <= num
+    },
+    thumbnailCheck : function(param, num){
+      return param.length === num
+    }
+ }
+}));
+
 
 // Connect-Flash
 app.use(flash());

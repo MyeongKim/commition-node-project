@@ -17,13 +17,16 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "fs-extra": "^0.23.1",
     "jade": "~1.9.2",
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "~1.5.1",
+    "multer": "^1.0.3",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
+    "rimraf": "^2.4.3",
     "serve-favicon": "~2.2.0"
   }
 }

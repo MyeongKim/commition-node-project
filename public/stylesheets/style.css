@@ -10,9 +10,39 @@ a {
 .wrapper {
 	margin: 30px 50px 0 50px;
 }
+
+.intro-header{
+	position: relative;
+}
 .intro-div{
-	display: block;
-	margin-bottom: 50px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.align-btn{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+}
+
+.align-btn a{
+	width: 80px;
+}
+
+.intro-header form{
+	position: absolute;
+	bottom: 40px;
+	right: 0px;
+	width: 240px;
+	padding-left: 0px;
+}
+
+.intro-header .form-group{
+	width: 180px;
+}
+
+.intro-header form button{
+	float: right;
 }
 
 .image-card{
@@ -22,11 +52,12 @@ a {
 
 @keyframes slidy {
 0% { left: 0%; }
-20% { left: 0%; }
-40% { left: -100%; }
-60% { left: -100%; }
-80% { left: -200%; }
-100% { left: -200%; }
+17% { left: 0%; }
+34% { left: -100%; }
+51% { left: -100%; }
+68% { left: -200%; }
+85% { left: -200%; }
+100% { left: -300%; }
 }
 
 div#slider { 
@@ -54,7 +85,7 @@ div#slider figure:hover {
 	left: 0;
 	text-align: left;
 	font-size: 0;
-	animation: 5s slidy infinite;
+	animation: 4s slidy infinite;
 }
 
 .image-wrapper{
@@ -114,3 +145,76 @@ div#slider figure:hover {
 	clear: both;
 	margin-top: 20px;
 }
+
+ul.success {
+	padding-left: 0;
+}
+
+ul.success li{
+	padding: 15px;
+	margin-top:10px;
+  	margin-bottom: 20px;
+  	border: 1px solid transparent;
+  	border-radius: 4px;
+  	color: #3c763d;
+  	background-color: #dff0d8;
+  	border-color: #d6e9c6;
+  	list-style:none;
+}
+
+.notice{
+	border:1px solid gold;
+	background:lightyellow;
+	padding:10px 20px 10px 20px;
+	margin:10px 0;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	color:#DEAE00;
+	line-height:120%;
+	vertical-align: center;
+	text-shadow:0px 1px rgba(255,255,255,0.5);
+	position:relative;
+	top:0;
+	left:0;
+	clear:both;
+}
+
+.notice.warning{
+
+}/*default*/
+
+.notice.error{
+	border:1px solid red;
+	background:pink;
+	color:red;
+}
+
+.notice.success{
+	border:1px solid green;
+	background:lightgreen;
+	color:green;
+}
+
+.notice i[class*='fa-']{
+	position:absolute;
+	top:50%;
+	left:0.8em;
+	margin-top:-0.6em;
+}
+
+.notice a[class*='fa-remove'],
+.notice a[class*='fa-remove']:active,
+.notice a[class*='fa-remove']:visited{
+	text-decoration:none;
+	font-size:12px;
+	position:absolute;
+	top:5px;
+	right:5px;
+	left:auto;
+	color:inherit;
+	margin-top:0;
+	left:auto;
+}
+
+
