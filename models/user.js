@@ -1,95 +1,64 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
-mongoose.connect('mongodb://localhost/eight');
-
-var db = mongoose.connection;
-
-// Commition Schema
-var commitionSchema = mongoose.Schema({
-	time : {
-		type: Number
-	},
-	heart : {
-		type: Number,
-		default: 0
-	},
-	nickname : {
-		type: String
-	}, 
-	email : {
+// User Schema
+var userSchema = mongoose.Schema({
+	nickname: {
 		type: String
 	},
-	sns : {
+	email: {
 		type: String
 	},
-	homepage_blog : {
-		type: String
-	},
-	password : {
-		type: String,
+	password:{
+		type:String,
 		bcrypt: true
 	},
-	time_spent : {
-		type: String
-	},
-	process : {
-		type: String
-	},
-	warning : {
-		type: String
-	},
-	etc : {
-		type: String
-	},
-	end_time : {
-		type: Date
-	},
-	slot_full : {
-		type: Number
-	},
-	slot_open : {
-		type: Number
-	},
-	type_one: {
-		files_name:[{type: String}],
-		files_size:{type: String},
-		type_desc:{type: String},
-		price:{type: String}
-	},
-	type_two: {
-		files_name:[{type: String}],
-		files_size:{type: String},
-		type_desc:{type: String},
-		price:{type: String}
-	},
-	type_three: {
-		files_name:[{type: String}],
-		files_size:{type: String},
-		type_desc:{type: String},
-		price:{type: String}
-	},
-	thumbnail_files_name : [{
-		type: String
-	}]
+	twitterId:{
+		type:String
+	}
 });
 
-var Commition = module.exports = mongoose.model('Commition', commitionSchema);
+var User = module.exports = mongoose.model('User', userSchema);
 
+module.exports.createUser = function(newUser, callback) {
+	bcrypt.hash(newUser.password, 10, function(err, hash){
+		if(err) throw err;
+		// Set hashed pw
+		newUser.password = hash;
+		// Create User
+		newUser.save(callback)
+	});
+}
+// Fetch All Classes
+module.exports.getUserById = function(id, callback){
+	User.findById(id, callback);
+}
 
-// Fetch All Commitions
-module.exports.getCommitionById = function(id, callback){
-	Commition.findById(id, callback);
+// Fetch Single Class
+module.exports.getUserByEmail = function(email, callback){
+	var query = {email: email};
+	User.findOne(query, callback);
+}
+
+// Save Student
+module.exports.saveStudent = function(newUser, newStudent, callback){
+	bcrypt.hash(newUser.password, 10, function(err, hash){
+		if(err) throw errl
+		// Set hash
+		newUser.password = hash;
+		console.log('Student is being saved');
+		async.parallel([newUser.save, newStudent.save], callback);
+	});
 }
 
 // Save Instructor
-module.exports.saveCommition = function(newCommition, callback){
-	bcrypt.hash(newCommition.password, 10, function(err, hash){
-		if(err) throw err;
+module.exports.saveInstructor = function(newUser, newInstructor, callback){
+	bcrypt.hash(newUser.password, 10, function(err, hash){
+		if(err) throw errl
 		// Set hash
-		newCommition.password = hash;
-		console.log('Commition is being saved');
-		async.parallel([newCommition.save], callback);
+		newUser.password = hash;
+		console.log('Instructor is being saved');
+		async.parallel([newUser.save, newInstructor.save], callback);
 	});
 }
 

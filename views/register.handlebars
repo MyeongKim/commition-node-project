@@ -1,0 +1,24 @@
+<h2>가입 페이지</h2>
+<div class="signin-div">
+	<form id="regForm" method="post" action="/user/register">
+		<div>
+			<label>email : </label>
+			<input type="email" class="form-control" name="email" value="{{email}}">
+		</div>
+		<div>
+			<label>Nickname: </label>
+			<input type="text" class="form-control" name="nickname" value="{{nickname}}">
+		</div>
+		<div>
+			<label>Password: </label>
+			<input type="password" class="form-control" name="password" value="{{password}}">
+		</div>
+		<div>
+			<label>Password Confirm: </label>
+			<input type="password" class="form-control" name="password2" value="{{password2}}">
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+	</form>
+	<div><a href="/user/auth/twitter">트위터로 가입하기</a></div>
+	<div><a href="/user/login">로그인하기</a></div>
+</div>

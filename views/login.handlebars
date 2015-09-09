@@ -1,0 +1,17 @@
+<h2>로그인 페이지</h2>
+<div class="signin-div">
+	<form class="form-signin" method="post" action="/user/login">
+		<label for="inputEmail" class="sr-only">Email address</label>
+		<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" value="remember-me"> Remember me
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	</form>
+	<div><a href="/user/auth/twitter">트위터로 로그인</a></div>
+	<div><a href="/user/register">가입하기</a></div>
+</div>

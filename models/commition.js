@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
-mongoose.connect('mongodb://localhost/eight');
-
-var db = mongoose.connection;
-
 // Commition Schema
 var commitionSchema = mongoose.Schema({
 	time : {
@@ -13,18 +9,6 @@ var commitionSchema = mongoose.Schema({
 	heart : {
 		type: Number,
 		default: 0
-	},
-	nickname : {
-		type: String
-	}, 
-	email : {
-		type: String
-	},
-	sns : {
-		type: String
-	},
-	homepage_blog : {
-		type: String
 	},
 	password : {
 		type: String,

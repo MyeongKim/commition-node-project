@@ -217,4 +217,8 @@ ul.success li{
 	left:auto;
 }
 
-
+/*sign in page*/
+.signin-div, .register-div{
+	margin-left: 30%;
+	width: 40%;
+}

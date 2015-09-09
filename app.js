@@ -9,15 +9,18 @@ var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
-var LocalStrategy = require('passport-local'),Strategy;
+var LocalStrategy = require('passport-local').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/eight');
 var db = mongoose.connection;
 async = require('async');
 
 var routes = require('./routes/index');
 var about = require('./routes/about');
 var submit = require('./routes/submit');
+var users = require('./routes/users');
 // var students = require('./routes/students');
 
 
@@ -32,9 +35,16 @@ app.set('view engine', 'handlebars');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    next();
+});
 
 // Express Session
 app.use(session({
@@ -105,6 +115,8 @@ app.get('*', function(req, res, next) {
 app.use('/', routes);
 app.use('/about', about);
 app.use('/submit', submit);
+app.use('/user', users);
+
 // app.use('/students', students);
 
 // catch 404 and forward to error handler
