@@ -9,7 +9,7 @@ var Commition = require('../models/commition');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('submit');
+  res.render('submit', {'active_submit' : true});
 });
 
 // multer upload settings

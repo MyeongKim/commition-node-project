@@ -12,13 +12,13 @@ router.get('/', function(req, res, next) {
 
 router.get('/register', function(req, res, next) {
   res.render('register',{
-	'title': 'Register'
+	'active_register': true
   });
 });
 
 router.get('/login', function(req, res, next) {
   res.render('login',{
-	'title': 'Login'
+	'active_login': true
   });
 });
 

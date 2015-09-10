@@ -41,10 +41,11 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/submit">등록하기</a></li>
+            <li class="{{#if active_submit}}active{{/if}}"><a href="/submit">등록하기</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/about">About</a></li>
+            <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
+            <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
           </ul>
         </div>
       </div>
@@ -70,6 +71,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.jscroll.min.js"></script>
+    <!-- jscroll code -->
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.scroll').jscroll();
+      });
+    </script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   </body>
 </html>

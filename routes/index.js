@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/scroll', function(req, res, next) {
+  res.render('scrollContent',{layout : false});
+});
+
+
 module.exports = router;
