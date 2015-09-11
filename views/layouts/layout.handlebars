@@ -44,6 +44,7 @@
             <li class="{{#if active_submit}}active{{/if}}"><a href="/submit">등록하기</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li class="alerm"><a href=""><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
             <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
             <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
           </ul>
@@ -75,7 +76,26 @@
     <!-- jscroll code -->
     <script type="text/javascript">
       $(document).ready(function(){
+        // index.handlebars js
         $('.scroll').jscroll();
+
+        // submit.handlebars js
+        var unsaved = false;
+
+        $(":input").change(function(){
+          unsaved = true;
+        });
+        $(window).bind('beforeunload', function(){
+
+          if(unsaved){
+            return '페이지에서 나가시겠습니까?';
+          }
+        });
+
+        $('form').submit(function(){
+          $(window).unbind('beforeunload'); 
+        });
+
       });
     </script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

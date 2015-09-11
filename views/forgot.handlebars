@@ -1,0 +1,11 @@
+<h2>비밀번호 재설정 페이지</h2>
+<p>이메일로 인증 메일이 전송됩니다.</p>
+<div class="forgot-div">
+	<form id="regForm" method="post" action="/user/forgot">
+		<div>
+			<label>새 비밀번호를 설정할 이메일</label>
+			<input type="email" class="form-control" name="email" value="{{email}}">
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">설정하기</button>
+	</form>
+</div>

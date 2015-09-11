@@ -65,7 +65,7 @@ a {
 .image-card .image-detail{
 	float: left;
 	height: 100%;
-	width: 15%;
+	width: 19%;
 	margin-left: 10px;
 	overflow: hidden;
 	font-size: 1.1em;
@@ -95,6 +95,7 @@ a {
 .image-card .image-detail .card-detail-page{
 	position: absolute;
 	bottom: 10px;
+	right: 10px;
 }
 
 
@@ -265,8 +266,13 @@ ul.success li{
 	left:auto;
 }
 
+.alert li{
+	list-style: none;
+	padding-left: 0;
+}
+
 /*sign in page*/
-.signin-div, .register-div{
+.signin-div, .register-div, .forgot-div{
 	margin-left: 30%;
 	width: 40%;
 }

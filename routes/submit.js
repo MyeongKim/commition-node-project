@@ -9,7 +9,13 @@ var Commition = require('../models/commition');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('submit', {'active_submit' : true});
+	if(req.user){
+		res.render('submit', {'active_submit' : true});
+	}
+	else{
+		req.flash('alert alert-warning', '로그인이 필요합니다.');
+		res.redirect('/user/login');
+	}
 });
 
 // multer upload settings
@@ -19,7 +25,7 @@ var storage = multer.diskStorage({
     cb(null, './uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, 'invalid-'+ req.body.email +'-'+ req.body.time +'-'+ file.originalname)
+    cb(null, 'invalid-'+ (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname)
   }
 });
 
@@ -28,7 +34,7 @@ var storage2 = multer.diskStorage({
     cb(null, './uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, req.body.email +'-'+ req.body.time +'-'+ file.originalname)
+    cb(null, (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname)
   }
 });
 
@@ -63,11 +69,8 @@ router.post('/', cpUpload, function(req, res, next) {
 		req.files.thumbnail_files_name = [];
 	}
 
+	var tag 					= req.body.tag;
 	var time 					= req.body.time;
-	var nickname     			= req.body.nickname;
-	var email     				= req.body.email;
-	var sns  					= req.body.sns;
-	var homepage_blog     		= req.body.homepage_blog;
 	var password    			= req.body.password;
 	var password2				= req.body.password2;
 	var time_spent     			= req.body.time_spent;
@@ -88,9 +91,6 @@ router.post('/', cpUpload, function(req, res, next) {
 	var type_three_price        = req.body.type_three_price;
 
 	// Form Field Validation
-	req.checkBody('nickname', '닉네임을 입력해주세요.').notEmpty();
-	req.checkBody('email', '이메일을 입력해주세요.').notEmpty();
-	req.checkBody('email', '이메일 형식이 잘못되었습니다.').isEmail();
 	req.checkBody('password', '비밀번호를 입력해주세요.').notEmpty();
 	req.checkBody('password2', '비밀번호가 맞지 않습니다.').equals(req.body.password);
 	req.checkFiles('type_one_files_name', '타입 1의 그림 파일을 9장 이하로 변경해주세요.').lengthCheck(9);
@@ -104,7 +104,7 @@ router.post('/', cpUpload, function(req, res, next) {
 		fs.readdir('./uploads/', function(err, files){
 			if (err) { throw err}
 			for( var i = 0; i < files.length ; i++){
-				if ( files[i].substring(0,8) === "invalid-" && files[i].indexOf(email) > -1){
+				if ( files[i].substring(0,8) === "invalid-" && files[i].indexOf(req.user.email || req.user.twitterId) > -1){
 					fs.unlink('./uploads/'+files[i], function(err){
 						if(err){ throw err};
 					})
@@ -115,10 +115,7 @@ router.post('/', cpUpload, function(req, res, next) {
 
 		res.render('submit', {
 			errors: errors,
-			nickname: nickname,
-			email: email,
-			sns: sns,
-			homepage_blog: homepage_blog,
+			tag : tag,
 			password: password,
 			password2: password2,
 			time_spent: time_spent,
@@ -143,7 +140,7 @@ router.post('/', cpUpload, function(req, res, next) {
 		fs.readdir('./uploads/', function(err, files){
 			if (err) { throw err}
 			for( var i = 0; i < files.length ; i++){
-				if ( files[i].substring(0,8) === "invalid-" && files[i].indexOf(email) > -1 ){
+				if ( files[i].substring(0,8) === "invalid-" && files[i].indexOf(req.user.email || req.user.twitterId) > -1 ){
 					fs.rename('./uploads/'+ files[i] , './uploads/'+ 'valid-'+ files[i].substring(8), function(err){
 						if(err) { throw err}
 					});
@@ -177,12 +174,12 @@ router.post('/', cpUpload, function(req, res, next) {
 		}
 
 		console.log(type_one_files_name_array, type_two_files_name_array, type_three_files_name_array, thumbnail_files_name_array);
+		
+		var tagArray = req.body.tag.split(',');
+
 		var newCommition = new Commition({
 				time : time,
-				nickname: nickname,
-				email: email,
-				sns: sns,
-				homepage_blog: homepage_blog,
+				tag : tagArray,
 				password: password,
 				time_spent: time_spent,
 				process: process,
@@ -213,6 +210,13 @@ router.post('/', cpUpload, function(req, res, next) {
 		});
 
 		console.log(newCommition);
+
+		if(req.user.email){
+			newCommition.email = req.user.emil
+		}else{
+			newCommition.twitterId = req.user.twitterId
+		}
+
         Commition.saveCommition(newCommition, function(err, data){
             if (err) { console.log(err); throw err}
             console.log('commition document created');
@@ -223,10 +227,6 @@ router.post('/', cpUpload, function(req, res, next) {
 	}
 
 
-});
-
-router.get('/sample', function(req, res, next) {
-  res.render('sample');
 });
 
 module.exports = router;

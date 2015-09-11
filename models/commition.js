@@ -10,6 +10,15 @@ var commitionSchema = mongoose.Schema({
 		type: Number,
 		default: 0
 	},
+	tag : [{
+		type: String
+	}],
+	email : {
+		type: String
+	},
+	twitterId : {
+		type: String
+	},
 	password : {
 		type: String,
 		bcrypt: true
