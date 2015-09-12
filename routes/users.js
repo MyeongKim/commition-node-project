@@ -16,6 +16,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/mypage', function(req, res, next){
+	res.render('mypage');
+});
+
 router.get('/register', function(req, res, next) {
   res.render('register',{
 	'active_register': true

@@ -116,7 +116,6 @@ app.use('/', routes);
 app.use('/about', about);
 app.use('/submit', submit);
 app.use('/user', users);
-
 // app.use('/students', students);
 
 // catch 404 and forward to error handler

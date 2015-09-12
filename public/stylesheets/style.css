@@ -66,7 +66,7 @@ a {
 	float: left;
 	height: 100%;
 	width: 19%;
-	margin-left: 10px;
+	padding-left: 10px;
 	overflow: hidden;
 	font-size: 1.1em;
 	position: relative;
@@ -275,4 +275,178 @@ ul.success li{
 .signin-div, .register-div, .forgot-div{
 	margin-left: 30%;
 	width: 40%;
+}
+
+/*mypage */
+.profile-card{
+	width: 40%;
+	margin-left: 30%;
+	padding-top: 30px;
+	padding-bottom: 20px;
+	text-align: center;
+	border: solid 1px black;
+}
+
+.profile-card-img{
+	width: 100px;
+	height: 100px;
+	margin-left : auto;
+	margin-right: auto;
+}
+
+.profile-card-detail{
+	margin-top: 20px;
+}
+
+.profile-card .profile-card-nickname{
+	font-size: 1.3em
+}
+
+.profile-card .profile-card-introduce{
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+.profile-card .profile-card-buttons button{
+	margin: 2px;
+	font-size: 1.14em;
+}
+
+.profile-card .profile-card-buttons a{
+	margin: 2px;
+	font-size: 1.14em;
+}
+
+.profile-card .profile-card-info-icon{
+	padding-top: 10px;
+	font-size: 1.3em;
+}
+
+.my-order-list{
+	border: solid 1px blue;
+	margin-top: 100px;
+}
+
+.my-order-list .my-order-list-header{
+	border: solid 3px black;
+	width: 50%;
+	margin-left: 25%;
+	font-size: 1.3em;
+	text-align: center;
+}
+
+.my-order-list .my-order-list-body{
+	border: solid 3px black;
+	margin-top: 30px;
+	width: 80%;
+	margin-left: 10%;
+	overflow: auto;
+}
+
+.my-order-list .my-order-list-body .my-order-list-buttons{
+	display: block;
+	float: right;
+}
+
+.my-order-list .my-order-list-body .my-order-list-card-wrapper{
+	margin: 20px;
+	clear: both;
+}
+
+.my-order-list .my-order-list-body .my-order-list-card-wrapper img{
+	width: 30px;
+	height: 30px;
+}
+
+.my-order-list .my-order-list-body .my-order-list-card{
+	padding-top: 10px;
+}
+
+.my-order-list .my-order-list-body .my-order-list-card-wrapper .my-order-list-title h3{
+	display: inline;
+}
+
+.my-order-list .my-order-list-body .my-order-list-card span{
+	float: right;
+}
+
+.my-order-list .my-order-list-body .my-order-list-card .my-order-list-nickname {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.my-order-list .my-order-list-body nav {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	text-align: center;
+
+}
+
+.my-commition-list{
+	border: solid 1px blue;
+	margin-top: 100px;
+}
+
+.my-commition-list .my-commition-list-header{
+	border: solid 3px black;
+	width: 50%;
+	margin-left: 25%;
+	font-size: 1.3em;
+	text-align: center;
+}
+
+.my-commition-list .my-commition-list-body{
+	border: solid 3px black;
+	margin-top: 30px;
+	width: 80%;
+	margin-left: 10%;
+	overflow: auto;
+}
+
+.my-commition-list .my-commition-list-body .my-commition-list-buttons{
+	display: block;
+	float: right;
+}
+
+.my-commition-list .my-commition-list-body .my-commition-list-card-wrapper{
+	margin: 20px;
+	clear: both;
+}
+
+.my-commition-list .my-commition-list-body .my-order-list-nickname > img{
+	width: 30px;
+	height: 30px;
+}
+
+.my-commition-list .my-commition-list-body .my-commition-list-card{
+	padding-top: 10px;
+}
+
+.my-commition-list .my-commition-list-body .my-commition-list-card-wrapper .my-commition-list-title h3{
+	display: inline;
+}
+
+.my-commition-list .my-commition-list-body .my-commition-list-card-wrapper .image-card{
+	margin-bottom: 10px;
+}
+
+.my-commition-list .my-commition-list-body .my-commition-list-card span{
+	float: right;
+}
+
+.my-commition-list .my-commition-list-body {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.my-commition-list .my-commition-list-body .my-commition-list-card .image-detail {
+	font-size: 1em;
+}
+
+.my-commition-list .my-commition-list-body nav {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	text-align: center;
+
 }
