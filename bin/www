@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('commition-node-project:server');
 var http = require('http');
-
+var socketFunction = require('../socket');
 /**
  * Get port from environment and store in Express.
  */
@@ -28,6 +28,16 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+var io = require('socket.io').listen(server);
+
+io.on('connection', function (socket) {
+    socket.on('followPlus', function(data) {
+        socketFunction.followPlus(data.creatorId, data.userId);
+    });
+    socket.on('followMinus', function(data) {
+        socketFunction.followMinus(data.creatorId, data.userId);
+    });
+  });
 
 /**
  * Normalize a port into a number, string, or false.

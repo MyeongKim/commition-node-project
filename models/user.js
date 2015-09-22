@@ -16,6 +16,14 @@ var userSchema = mongoose.Schema({
 	twitterId:{
 		type:String
 	},
+	following : [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref : 'User'
+	}],
+    follower : [{
+    	type: mongoose.Schema.Types.ObjectId,
+    	ref : 'User'
+    }],
 	resetPasswordToken: String,
     resetPasswordExpires: Date
 });

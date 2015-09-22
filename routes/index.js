@@ -10,5 +10,10 @@ router.get('/scroll', function(req, res, next) {
   res.render('scrollContent',{layout : false});
 });
 
+// commition page
+router.get('/detail', function(req, res, next) {
+  res.render('detail');
+});
+
 
 module.exports = router;

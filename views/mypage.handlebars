@@ -4,15 +4,21 @@
 	</div>
 	<div class="profile-card-detail">
 		<div class="profile-card-nickname">
-			<a href="#">누코</a>
+			<a href="#">{{data.nickname}}</a>
 		</div>
 		<div class="profile-card-introduce">
 			<span>안녕하세요, 반갑습니다.</span>			
 		</div>
 		<div class="profile-card-buttons">
-			<button class="btn btn-default">팔로잉</button><a href="">23</a>
-			<button class="btn btn-default">팔로워</button><a href="">112</a>
-			<button class="btn btn-primary">팔로우</button>			
+			<button class="btn btn-default">팔로잉</button><a href="">{{data.following.length}}</a>
+			<button class="btn btn-default">팔로워</button><a href="">{{data.follower.length}}</a>
+			<button id="mypage_profile_button" class="btn btn-primary" mine='{{mine}}'>
+				{{#if mine}}
+					프로필 수정
+				{{else}}
+					팔로우 
+				{{/if}}
+			</button>			
 		</div>
 		<div class="profile-card-info-icon">
 			<a href=""><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
@@ -105,9 +111,9 @@
 			<p>지금까지 3개의 커미션을 등록하셨습니다.</p>
 			<div class="image-card">
 				<div class="thumbnail-image">
-					<img src="http://demosthenes.info/assets/images/austin-fireworks.jpg" alt="">
-					<img src="http://demosthenes.info/assets/images/taj-mahal.jpg" alt="">
-					<img src="http://demosthenes.info/assets/images/ibiza.jpg" alt="">
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>
 				</div>
 				<div class="image-detail">
 					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
@@ -133,9 +139,9 @@
 			</div>
 			<div class="image-card">
 				<div class="thumbnail-image">
-					<img src="http://demosthenes.info/assets/images/austin-fireworks.jpg" alt="">
-					<img src="http://demosthenes.info/assets/images/taj-mahal.jpg" alt="">
-					<img src="http://demosthenes.info/assets/images/ibiza.jpg" alt="">
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>
 				</div>
 				<div class="image-detail">
 					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
@@ -161,9 +167,9 @@
 			</div>
 			<div class="image-card">
 				<div class="thumbnail-image">
-					<img src="http://demosthenes.info/assets/images/austin-fireworks.jpg" alt="">
-					<img src="http://demosthenes.info/assets/images/taj-mahal.jpg" alt="">
-					<img src="http://demosthenes.info/assets/images/ibiza.jpg" alt="">
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>
+					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>
 				</div>
 				<div class="image-detail">
 					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">

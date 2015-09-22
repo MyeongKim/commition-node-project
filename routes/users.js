@@ -16,8 +16,25 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/mypage', function(req, res, next){
-	res.render('mypage');
+router.get('/mypage/:nickname', function(req,res,next){
+    User.findOne({ nickname : req.params.nickname}).exec(function (err, data) {
+        res.format({
+            'html' : function(){
+                var userId = (req.user == undefined) ? "null" : req.user._id;
+                var infos = {
+                	userId : userId,
+                	user : req.user,
+                	mine : (userId == data._id) ? true : false,
+                	active : 1,
+                	data : data
+                };
+                res.render('mypage', infos);
+            },
+            'application/json' : function(){
+                res.send(data);
+            }
+        });
+    });
 });
 
 router.get('/register', function(req, res, next) {
@@ -145,7 +162,7 @@ passport.use(new TwitterStrategy({
 router.post('/login', passport.authenticate('local',{failureRedirect:'/user/login', failureFlash:'Invalid nickname or password'}), function(req, res){
 	console.log('Authentication Successful');
 	req.flash('success', 'You are logged in');
-	res.redirect('back');
+	res.redirect('/');
 });
 
 router.get('/auth/twitter',

@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, './public/uploads')
   },
   filename: function (req, file, cb) {
     cb(null, 'invalid-'+ (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname)
@@ -31,7 +31,7 @@ var storage = multer.diskStorage({
 
 var storage2 = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads')
+    cb(null, './public/uploads')
   },
   filename: function (req, file, cb) {
     cb(null, (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname)
@@ -101,11 +101,11 @@ router.post('/', cpUpload, function(req, res, next) {
 	var errors = req.validationErrors();	
 	if(errors){
 
-		fs.readdir('./uploads/', function(err, files){
+		fs.readdir('./public/uploads/', function(err, files){
 			if (err) { throw err}
 			for( var i = 0; i < files.length ; i++){
 				if ( files[i].substring(0,8) === "invalid-" && files[i].indexOf(req.user.email || req.user.twitterId) > -1){
-					fs.unlink('./uploads/'+files[i], function(err){
+					fs.unlink('./public/uploads/'+files[i], function(err){
 						if(err){ throw err};
 					})
 				}
@@ -137,40 +137,49 @@ router.post('/', cpUpload, function(req, res, next) {
 		});
 
 	} else {
-		fs.readdir('./uploads/', function(err, files){
+		fs.readdir('./public/uploads/', function(err, files){
 			if (err) { throw err}
 			for( var i = 0; i < files.length ; i++){
 				if ( files[i].substring(0,8) === "invalid-" && files[i].indexOf(req.user.email || req.user.twitterId) > -1 ){
-					fs.rename('./uploads/'+ files[i] , './uploads/'+ 'valid-'+ files[i].substring(8), function(err){
+					fs.rename('./public/uploads/'+ files[i] , './public/uploads/'+ 'valid-'+ files[i].substring(8), function(err){
 						if(err) { throw err}
 					});
 				}
 			}
 		});
 
-		var type_one_files_name    		= req.files.type_one_files_name;
-		var type_two_files_name    		= req.files.type_two_files_name;
-		var type_three_files_name   	= req.files.type_three_files_name;
-		var thumbnail_files_name    	= req.files.thumbnail_files_name;
-		var type_one_files_name_array 	= [];
-		var type_two_files_name_array 	= [];
-		var type_three_files_name_array = [];
-		var thumbnail_files_name_array  = [];
+		var type_one_files_name    				= req.files.type_one_files_name;
+		var type_two_files_name    				= req.files.type_two_files_name;
+		var type_three_files_name   			= req.files.type_three_files_name;
+		var thumbnail_files_name    			= req.files.thumbnail_files_name;
 
-		for (var i = 0 ; i < type_one_files_name.length ; i++){
-			type_one_files_name_array.push(type_one_files_name[i].filename);
+		var type_one_files_name_length   		= type_one_files_name.length;
+		var type_two_files_name_length  		= type_two_files_name.length;
+		var type_three_files_name_length  	 	= type_three_files_name.length;
+
+		var type_one_files_name_array 			= [];
+		var type_two_files_name_array 			= [];
+		var type_three_files_name_array 		= [];
+		var thumbnail_files_name_array 			= [];
+
+		for (var i = 0 ; i < type_one_files_name_length ; i++){
+			var validName = type_one_files_name[i].filename.replace("invalid","valid");
+			type_one_files_name_array.push(validName);
 		}
 
-		for (var i = 0 ; i < type_two_files_name.length ; i++){
-			type_two_files_name_array.push(type_two_files_name[i].filename);
+		for (var i = 0 ; i < type_two_files_name_length ; i++){
+			var validName = type_two_files_name[i].filename.replace("invalid","valid");
+			type_two_files_name_array.push(validName);
 		}
 
-		for (var i = 0 ; i < type_three_files_name.length ; i++){
-			type_three_files_name_array.push(type_three_files_name[i].filename);
+		for (var i = 0 ; i < type_three_files_name_length ; i++){
+			var validName = type_three_files_name[i].filename.replace("invalid","valid");
+			type_three_files_name_array.push(validName);
 		}
 
-		for (var i = 0 ; i < thumbnail_files_name.length ; i++){
-			thumbnail_files_name_array.push(thumbnail_files_name[i].filename);
+		for (var i = 0 ; i < 3 ; i++){
+			var validName = thumbnail_files_name[i].filename.replace("invalid","valid");
+			thumbnail_files_name_array.push(validName);
 		}
 
 		console.log(type_one_files_name_array, type_two_files_name_array, type_three_files_name_array, thumbnail_files_name_array);

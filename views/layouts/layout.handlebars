@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/skippr.css">
     <!-- Custom styles for this template -->
     <link href="/stylesheets/style.css" rel="stylesheet">
 
@@ -44,13 +45,34 @@
             <li class="{{#if active_submit}}active{{/if}}"><a href="/submit">등록하기</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="alerm"><a href=""><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
+            <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
             <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
             <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
           </ul>
         </div>
       </div>
     </nav>
+
+    <!-- alarm div -->
+    <div class="bell-alarm-div visuallyhidden bell-alarm-div-hidden">
+      <ul>
+        <li>
+          <a href="#">하트한 커미션에 새로운 신청이 들어왔습니다.</a>
+        </li>
+        <li>
+          <a href="#">범준</a>님이 나를 팔로우합니다.
+        </li>
+        <li>
+          <a href="#">[공지사항]</a> 새로운 기능이 추가되었습니다.
+        </li>
+        <li>
+          <a href="#">범준</a>님이 내 커미션을 구매하셨습니다.
+        </li>
+        <li>
+          <a href="#">범준</a>님이 새로운 메시지를 보내셨습니다.
+        </li>
+      </ul>
+    </div>
 
     <div class="container">
       <div class="wrapper">
@@ -73,11 +95,38 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="/javascripts/jquery.jscroll.min.js"></script>
+    <script src="/javascripts/skippr.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
     <!-- jscroll code -->
     <script type="text/javascript">
       $(document).ready(function(){
+        var data = JSON.stringify({{data}});
+        var userId = JSON.stringify({{userId}});
+        var mine = JSON.stringify({{mine}});
+        // socket.io connection
+        var socket = io.connect('http://127.0.0.1:3000');
+
         // index.handlebars js
         $('.scroll').jscroll();
+
+        $('.alarm').click(function(e){
+          e.preventDefault();
+          var $alarmDiv = $('.bell-alarm-div');
+          if ($alarmDiv.hasClass('bell-alarm-div-hidden')) {
+            $alarmDiv.removeClass('bell-alarm-div-hidden');
+            setTimeout(function () {
+              $alarmDiv.removeClass('visuallyhidden');
+            }, 20);
+          } else {
+            setTimeout(function () {
+              $alarmDiv.addClass('visuallyhidden');
+            }, 20);
+            // $alarmDiv.addClass('visuallyhidden');
+            $alarmDiv.one('transitionend', function(e) {
+              $alarmDiv.addClass('bell-alarm-div-hidden');
+            });
+          }
+        });
 
         // submit.handlebars js
         var unsaved = false;
@@ -95,6 +144,32 @@
         $('form').submit(function(){
           $(window).unbind('beforeunload'); 
         });
+
+        $(".slider-target").skippr({
+          navType: 'bubble'
+        });
+
+        // alert({{userId}});
+        // http://stackoverflow.com/questions/29174185/accessing-handlebars-variable-inside-client-js-file
+        // socket.io of mypage js
+        $('#mypage_profile_button').click(function(e){
+          var mine = $(this).attr('mine');
+          // check if this profile is mine
+          if(mine === true){
+            // this profile is mine
+            alert("프로필 수정은 차후에");
+          } else {
+            // this profile is not mine
+            if(data.following.indexOf(userId) < 0){
+              // I'm not following this user
+              socket.emit("followPlus", { creatorId: data._id, userId: userId });
+            }else {
+              // I'm already following this user
+              socket.emit("followMinus", { creatorId: this.state.data._creator._id, userId: userId });
+            }
+          }
+
+        })
 
       });
     </script>
