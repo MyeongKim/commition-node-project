@@ -22,6 +22,8 @@ var about = require('./routes/about');
 var submit = require('./routes/submit');
 var users = require('./routes/users');
 var search = require('./routes/search');
+var commition = require('./routes/commition');
+
 // var students = require('./routes/students');
 
 
@@ -118,6 +120,8 @@ app.use('/about', about);
 app.use('/submit', submit);
 app.use('/user', users);
 app.use('/search', search);
+app.use('/commition', commition);
+
 // app.use('/students', students);
 
 // catch 404 and forward to error handler
