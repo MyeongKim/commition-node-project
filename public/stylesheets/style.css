@@ -630,6 +630,11 @@ ul.success li{
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
+	cursor: pointer;
+}
+
+.detail-body .detail-commition-types .modal{
+	text-align: center;
 }
 
 .detail-body .detail-commition-types .detail-commition-types-label div{

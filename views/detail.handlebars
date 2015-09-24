@@ -76,10 +76,19 @@
 		<div class="type-slider">
 			<div class="{{isSingle commition.type_one.files_name}}">
 				{{#each commition.type_one.files_name}}
-				<div class="slider-image-div" style="background-image: url(http://127.0.0.1:3000/uploads/{{this}})"></div>
+					<div data-toggle="modal" data-target="#type_one{{@index}}" class="slider-image-div" style="background-image: url(http://127.0.0.1:3000/uploads/{{this}})"></div>
 				{{/each}}
 			</div>
 		</div>
+		{{#each commition.type_one.files_name}}
+			<div id="type_one{{@index}}" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<img src="http://127.0.0.1:3000/uploads/{{this}}">
+					</div>
+				</div>
+			</div>
+		{{/each}}
 		<div class="detail-commition-types-label">
 			<div>
 				<button class="btn btn-default">사이즈</button>
@@ -105,10 +114,19 @@
 		<div class="type-slider">
 			<div class="{{isSingle commition.type_two.files_name}}">
 				{{#each commition.type_two.files_name}}
-				<div class="slider-image-div" style="background-image: url(http://127.0.0.1:3000/uploads/{{this}})"></div>
+				<div data-toggle="modal" data-target="#type_two{{@index}}" class="slider-image-div" style="background-image: url(http://127.0.0.1:3000/uploads/{{this}})"></div>
 				{{/each}}
 			</div>
 		</div>
+		{{#each commition.type_two.files_name}}
+			<div id="type_two{{@index}}" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<img src="http://127.0.0.1:3000/uploads/{{this}}">
+					</div>
+				</div>
+			</div>
+		{{/each}}
 		<div class="detail-commition-types-label">
 			<div>
 				<button class="btn btn-default">사이즈</button>
@@ -134,10 +152,19 @@
 		<div class="type-slider">
 			<div class="{{isSingle commition.type_three.files_name}}">
 				{{#each commition.type_three.files_name}}
-				<div class="slider-image-div" style="background-image: url(http://127.0.0.1:3000/uploads/{{this}})"></div>
+				<div data-toggle="modal" data-target="#type_three{{@index}}" class="slider-image-div" style="background-image: url(http://127.0.0.1:3000/uploads/{{this}})"></div>
 				{{/each}}
 			</div> 
 		</div>
+		{{#each commition.type_three.files_name}}
+			<div id="type_three{{@index}}" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<img src="http://127.0.0.1:3000/uploads/{{this}}">
+					</div>
+				</div>
+			</div>
+		{{/each}}
 		<div class="detail-commition-types-label">
 			<div>
 				<button class="btn btn-default">사이즈</button>
