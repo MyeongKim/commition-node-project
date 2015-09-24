@@ -1,10 +1,14 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-
+var Schema = mongoose.Schema;
 // Commition Schema
 var commitionSchema = mongoose.Schema({
 	time : {
 		type: Number
+	},
+	user : {
+		type: Schema.Types.ObjectId,
+		ref: 'User'
 	},
 	heart : {
 		type: Number,
@@ -13,6 +17,9 @@ var commitionSchema = mongoose.Schema({
 	view : {
 		type: Number,
 		default:0
+	},
+	title : {
+		type: String
 	},
 	tag : [{
 		type: String
@@ -24,8 +31,7 @@ var commitionSchema = mongoose.Schema({
 		type: String
 	},
 	password : {
-		type: String,
-		bcrypt: true
+		type: String
 	},
 	time_spent : {
 		type: String

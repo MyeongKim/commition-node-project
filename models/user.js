@@ -10,8 +10,15 @@ var userSchema = mongoose.Schema({
 		type: String
 	},
 	password:{
-		type:String,
+		type: String,
 		bcrypt: true
+	},
+	stateMessage:{
+		type: String,
+		default : "안녕하세요, 반갑습니다."
+	},
+	account_number : {
+		type: String
 	},
 	twitterId:{
 		type:String

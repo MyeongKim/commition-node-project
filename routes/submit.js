@@ -188,6 +188,7 @@ router.post('/', cpUpload, function(req, res, next) {
 
 		var newCommition = new Commition({
 				time : time,
+				user : req.user._id,
 				tag : tagArray,
 				password: password,
 				time_spent: time_spent,

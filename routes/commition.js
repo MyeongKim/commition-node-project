@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 var Commition = require('../models/commition');
 
@@ -10,15 +11,26 @@ String.prototype.toObjectId = function() {
 
 router.get('/:id', function(req, res, next) {
 	var paramId = req.params.id;
-	Commition.findById( paramId.toObjectId(), function(err, commition){
-		if(err){
-			console.log(err);
-		}
-		var model = {
-			commition : commition
-		}
-		console.log("time is "+commition.time);
-		res.render('detail', model);
+	Commition
+		.findById(paramId.toObjectId())
+		.populate('user')
+		.exec(function (err, commition) {
+			if (err) return handleError(err);
+		var options = {
+			commition : commition,
+			user : commition.user,
+			helpers: {
+            	isSingle: function (array) { 
+            		if (array.length === 1){
+						return 'single-target'; 
+            		}else {
+            			return 'slider-target'; 
+            		}
+            		
+            	}
+       		}
+		};
+		res.render('detail', options);
 	});
 });
 
