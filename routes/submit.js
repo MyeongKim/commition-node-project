@@ -95,6 +95,7 @@ router.post('/', cpUpload, function(req, res, next) {
 	// Form Field Validation
 	req.checkBody('password', '비밀번호를 입력해주세요.').notEmpty();
 	req.checkBody('password2', '비밀번호가 맞지 않습니다.').equals(req.body.password);
+	req.checkBody('slot_open', '전체 슬롯보다 열려있는 슬롯의 갯수가 더 많습니다.').lee(req.body.slot_full);
 	req.checkFiles('type_one_files_name', '타입 1의 그림 파일을 9장 이하로 변경해주세요.').lengthCheck(9);
 	req.checkFiles('type_two_files_name', '타입 2의 그림 파일을 9장 이하로 변경해주세요.').lengthCheck(9);
 	req.checkFiles('type_three_files_name', '타입 3의 그림 파일을 9장 이하로 변경해주세요.').lengthCheck(9);

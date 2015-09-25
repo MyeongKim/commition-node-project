@@ -20,6 +20,7 @@
     "express-validator": "*",
     "fs-extra": "^0.23.1",
     "jade": "~1.9.2",
+    "moment": "^2.10.6",
     "mongodb": "*",
     "mongoose": "*",
     "morgan": "~1.5.1",

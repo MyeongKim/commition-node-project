@@ -85,6 +85,9 @@ app.use(expressValidator({
     },
     thumbnailCheck : function(param, num){
       return param.length === num
+    },
+    lee: function(num1, num2){
+      return num1 <= num2
     }
  }
 }));
