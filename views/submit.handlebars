@@ -239,13 +239,6 @@
 <form id="submitForm" method="post" action="/submit" enctype="multipart/form-data" class="form-horizontal submit-form">
 	<input type="hidden" id="time" name="time">
 	<div class="form-group">
-		<label class="col-sm-2 control-label">태그</label>
-		<div class="col-sm-10">
-			<input type="text" name="tag" value="{{tag}}"class="form-control" placeholder="태그를 입력해주세요.">
-			<p class="help-block">여러 개 등록시 콤마(,)로 구분해주세요.</p>
-		</div>
-	</div>
-	<div class="form-group">
 		<label class="col-sm-2 control-label">작업 기간</label>
 		<div class="col-sm-10">
 			<input type="text" name="time_spent" value="{{time_spent}}"class="form-control" placeholder="작업 기간을 입력해주세요.">
@@ -319,6 +312,13 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-2 control-label">태그</label>
+				<div class="col-sm-10">
+					<input type="text" name="type_one_tag" value="{{type_one_tag}}"class="form-control" placeholder="태그를 입력해주세요.">
+					<p class="help-block">여러 개 등록시 콤마(,)로 구분해주세요.</p>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-2 control-label">그림 사이즈</label>
 				<div class="col-sm-10">
 					<input type="text" name="type_one_files_size" value="{{type_one_files_size}}" class="form-control" placeholder="그림 사이즈를 입력해주세요.">
@@ -351,6 +351,13 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-2 control-label">태그</label>
+				<div class="col-sm-10">
+					<input type="text" name="type_two_tag" value="{{type_two_tag}}"class="form-control" placeholder="태그를 입력해주세요.">
+					<p class="help-block">여러 개 등록시 콤마(,)로 구분해주세요.</p>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-2 control-label">그림 사이즈</label>
 				<div class="col-sm-10">
 					<input type="text" name="type_two_files_size" value="{{type_two_files_size}}" class="form-control" placeholder="그림 사이즈를 입력해주세요.">
@@ -380,6 +387,13 @@
 				<div class="col-sm-10">
 					<input type="file" name="type_three_files_name" multiple>
 					<p class="help-block">최대 9개 선택하실 수 있습니다.</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">태그</label>
+				<div class="col-sm-10">
+					<input type="text" name="type_three_tag" value="{{type_three_tag}}"class="form-control" placeholder="태그를 입력해주세요.">
+					<p class="help-block">여러 개 등록시 콤마(,)로 구분해주세요.</p>
 				</div>
 			</div>
 			<div class="form-group">

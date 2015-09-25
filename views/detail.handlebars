@@ -69,9 +69,9 @@
 	<div class="detail-commition-types detail-commition-type1">
 		<div class="type-title">
 			<button class="btn btn-default">타입1</button>
-			<a href="#">#태그1</a>
-			<a href="#">#태그2</a>
-			<a href="#">#태그3</a>
+			{{#each commition.type_one.tag}}
+			<a href="#">#{{this}}</a>
+			{{/each}}
 		</div>
 		<div class="type-slider">
 			<div class="{{isSingle commition.type_one.files_name}}">
@@ -107,9 +107,9 @@
 	<div class="detail-commition-types detail-commition-type2">
 		<div class="type-title">
 			<button class="btn btn-default">타입2</button>
-			<a href="#">#태그1</a>
-			<a href="#">#태그2</a>
-			<a href="#">#태그3</a>
+			{{#each commition.type_two.tag}}
+			<a href="#">#{{this}}</a>
+			{{/each}}
 		</div>
 		<div class="type-slider">
 			<div class="{{isSingle commition.type_two.files_name}}">
@@ -145,9 +145,9 @@
 	<div class="detail-commition-types detail-commition-type3">
 		<div class="type-title">
 			<button class="btn btn-default">타입3</button>
-			<a href="#">#태그1</a>
-			<a href="#">#태그2</a>
-			<a href="#">#태그3</a>
+			{{#each commition.type_three.tag}}
+			<a href="#">#{{this}}</a>
+			{{/each}}
 		</div>
 		<div class="type-slider">
 			<div class="{{isSingle commition.type_three.files_name}}">

@@ -21,9 +21,6 @@ var commitionSchema = mongoose.Schema({
 	title : {
 		type: String
 	},
-	tag : [{
-		type: String
-	}],
 	email : {
 		type: String
 	},
@@ -58,19 +55,22 @@ var commitionSchema = mongoose.Schema({
 		files_name:[{type: String}],
 		files_size:{type: String},
 		type_desc:{type: String},
-		price:{type: String}
+		price:{type: String},
+		tag : [{type: String}]
 	},
 	type_two: {
 		files_name:[{type: String}],
 		files_size:{type: String},
 		type_desc:{type: String},
-		price:{type: String}
+		price:{type: String},
+		tag : [{type: String}]
 	},
 	type_three: {
 		files_name:[{type: String}],
 		files_size:{type: String},
 		type_desc:{type: String},
-		price:{type: String}
+		price:{type: String},
+		tag : [{type: String}]
 	},
 	thumbnail_files_name : [{
 		type: String

@@ -69,7 +69,6 @@ router.post('/', cpUpload, function(req, res, next) {
 		req.files.thumbnail_files_name = [];
 	}
 
-	var tag 					= req.body.tag;
 	var time 					= req.body.time;
 	var password    			= req.body.password;
 	var password2				= req.body.password2;
@@ -80,12 +79,15 @@ router.post('/', cpUpload, function(req, res, next) {
 	var end_time 				= req.body.end_time;
 	var slot_full            	= req.body.slot_full;
 	var slot_open            	= req.body.slot_open;
+	var type_one_tag 			= req.body.type_one_tag;
 	var type_one_files_size     = req.body.type_one_files_size;
 	var type_one_type_desc      = req.body.type_one_type_desc;
 	var type_one_price          = req.body.type_one_price;
+	var type_two_tag 			= req.body.type_two_tag;
 	var type_two_files_size     = req.body.type_two_files_size;
 	var type_two_type_desc      = req.body.type_two_type_desc;
 	var type_two_price          = req.body.type_two_price;
+	var type_three_tag 			= req.body.type_three_tag;
 	var type_three_files_size   = req.body.type_three_files_size;
 	var type_three_type_desc    = req.body.type_three_type_desc;
 	var type_three_price        = req.body.type_three_price;
@@ -115,7 +117,6 @@ router.post('/', cpUpload, function(req, res, next) {
 
 		res.render('submit', {
 			errors: errors,
-			tag : tag,
 			password: password,
 			password2: password2,
 			time_spent: time_spent,
@@ -125,12 +126,15 @@ router.post('/', cpUpload, function(req, res, next) {
 			end_time: end_time,
 			slot_full: slot_full,
 			slot_open: slot_open,
+			type_one_tag: type_one_tag,
 			type_one_files_size: type_one_files_size,
 			type_one_type_desc: type_one_type_desc,
 			type_one_price: type_one_price,
+			type_two_tag: type_two_tag,
 			type_two_files_size: type_two_files_size,
 			type_two_type_desc: type_two_type_desc,
 			type_two_price: type_two_price,
+			type_three_tag: type_three_tag,
 			type_three_files_size: type_three_files_size,
 			type_three_type_desc: type_three_type_desc,
 			type_three_price: type_three_price
@@ -184,12 +188,13 @@ router.post('/', cpUpload, function(req, res, next) {
 
 		console.log(type_one_files_name_array, type_two_files_name_array, type_three_files_name_array, thumbnail_files_name_array);
 		
-		var tagArray = req.body.tag.split(',');
+		var tagArray1 = req.body.type_one_tag.split(',');
+		var tagArray2 = req.body.type_two_tag.split(',');
+		var tagArray3 = req.body.type_three_tag.split(',');
 
 		var newCommition = new Commition({
 				time : time,
 				user : req.user._id,
-				tag : tagArray,
 				password: password,
 				time_spent: time_spent,
 				process: process,
@@ -202,19 +207,22 @@ router.post('/', cpUpload, function(req, res, next) {
 					files_name: type_one_files_name_array,
 					files_size: type_one_files_size,
 					type_desc: type_one_type_desc,
-					price: type_one_price
+					price: type_one_price,
+					tag: tagArray1
 				},
 				type_two: {
 					files_name: type_two_files_name_array,
 					files_size: type_two_files_size,
 					type_desc: type_two_type_desc,
-					price: type_two_price
+					price: type_two_price,
+					tag: tagArray2
 				},
 				type_three: {
 					files_name: type_three_files_name_array,
 					files_size: type_three_files_size,
 					type_desc: type_three_type_desc,
-					price: type_three_price
+					price: type_three_price,
+					tag: tagArray3
 				},
 				thumbnail_files_name: thumbnail_files_name_array
 		});
