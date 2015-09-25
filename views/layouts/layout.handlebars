@@ -45,9 +45,13 @@
             <li class="{{#if active_submit}}active{{/if}}"><a href="/submit">등록하기</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
-            <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
-            <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
+            {{#if user}}
+              <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
+              <li class=""><a href="/user/mypage">{{user.nickname}}</a></li>
+            {{else}}
+              <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
+              <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
+            {{/if}}
           </ul>
         </div>
       </div>
