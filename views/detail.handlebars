@@ -18,7 +18,7 @@
 					<a href="#">{{user.nickname}}</a>
 				</div>
 				<div class="profile-card-introduce">
-					<span>{{user.stateMessage}}</span>			
+					<span>{{inputText user.stateMessage}}</span>			
 				</div>
 				<div class="profile-card-buttons">
 					<button class="btn btn-default">팔로잉</button><a href="">{{user.following.length}}</a>
@@ -46,23 +46,23 @@
 		<div class="detail-commition-data-label">
 			<div>
 				<button class="btn btn-default">주의사항</button>
-				<p>{{commition.warning}}</p>	
+				<p>{{inputText commition.warning}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">과정</button>
-				<p>{{commition.process}}</p>	
+				<p>{{inputText commition.process}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">소요시간</button>
-				<p>{{commition.time_spent}}</p>	
+				<p>{{inputText commition.time_spent}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">기타</button>
-				<p>{{commition.etc}}</p>	
+				<p>{{inputText commition.etc}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">계좌번호</button>
-				<p>{{user.account_number}}</p>	
+				<p>{{inputText user.account_number}}</p>
 			</div>
 		</div>
 	</div>
@@ -92,15 +92,15 @@
 		<div class="detail-commition-types-label">
 			<div>
 				<button class="btn btn-default">사이즈</button>
-				<p>{{commition.type_one.files_size}}</p>	
+				<p>{{inputText commition.type_one.files_size}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">타입 설명</button>
-				<p>{{commition.type_one.type_desc}}</p>	
+				<p>{{inputText commition.type_one.type_desc}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">가격</button>
-				<p>{{commition.type_one.price}}</p>	
+				<p>{{inputText commition.type_one.price}}</p>	
 			</div>
 		</div>
 	</div>
@@ -130,15 +130,15 @@
 		<div class="detail-commition-types-label">
 			<div>
 				<button class="btn btn-default">사이즈</button>
-				<p>{{commition.type_two.files_size}}</p>	
+				<p>{{inputText commition.type_two.files_size}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">타입 설명</button>
-				<p>{{commition.type_two.type_desc}}</p>	
+				<p>{{inputText commition.type_two.type_desc}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">가격</button>
-				<p>{{commition.type_two.price}}</p>	
+				<p>{{inputText commition.type_two.price}}</p>	
 			</div>
 		</div>
 	</div>
@@ -168,15 +168,15 @@
 		<div class="detail-commition-types-label">
 			<div>
 				<button class="btn btn-default">사이즈</button>
-				<p>{{commition.type_three.files_size}}</p>	
+				<p>{{inputText commition.type_three.files_size}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">타입 설명</button>
-				<p>{{commition.type_three.type_desc}}</p>	
+				<p>{{inputText commition.type_three.type_desc}}</p>	
 			</div>
 			<div>
 				<button class="btn btn-default">가격</button>
-				<p>{{commition.type_three.price}}</p>	
+				<p>{{inputText commition.type_three.price}}</p>	
 			</div>
 		</div>
 	</div>

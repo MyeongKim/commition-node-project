@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../server');
 var debug = require('debug')('commition-node-project:server');
 var http = require('http');
 var socketFunction = require('../socket');

@@ -44,7 +44,13 @@
 					<span class="glyphicon glyphicon-heart" aria-hidden="true">{{this.heart}}</span>
 				</div>
 				<div class="card-tag-info">
-					{{#each this.tag}}
+					{{#each this.type_one.tag}}
+						<a href="">#{{this}}</a>
+					{{/each}}
+					{{#each this.type_two.tag}}
+						<a href="">#{{this}}</a>
+					{{/each}}
+					{{#each this.type_three.tag}}
 						<a href="">#{{this}}</a>
 					{{/each}}
 				</div>

@@ -30,7 +30,19 @@ router.get('/:id', function(req, res, next) {
 	            		
 	            	},
 	            	endTime: function(){
-	            		return moment(commition.end_time).format('YYYY-DD-MM');
+	            		if(commition.end_time){
+	            			return moment(commition.end_time).format('YYYY-DD-MM');
+	            		} else {
+	            			return "-"
+	            		}
+	            		
+	            	},
+	            	inputText : function(string){
+	            		if(!string){
+	            			return "-"
+	            		} else {
+							return string
+	            		}
 	            	}
 	       		}
 			};
