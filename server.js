@@ -13,7 +13,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/eight');
+mongoose.connect('mongodb://127.0.0.1:27017/eight');
 var db = mongoose.connection;
 async = require('async');
 

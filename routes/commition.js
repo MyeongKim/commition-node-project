@@ -43,6 +43,9 @@ router.get('/:id', function(req, res, next) {
 	            		} else {
 							return string
 	            		}
+	            	},
+	            	socketTest : function(){
+	            		// return windows.alert('sdf');
 	            	}
 	       		}
 			};

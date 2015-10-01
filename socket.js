@@ -28,11 +28,11 @@ module.exports = {
     //     });
     // },
 
-    // viewPlus : function(csId){
-    //     CommitModel.update({_id : csId},  { $inc: { viewNum: 1 }}, function(err,data){
-    //         if (err) return next(err);
-    //     });
-    // },
+    viewPlus : function(csId){
+        Commition.update({_id : csId},  { $inc: { view: 1 }}, function(err,data){
+            if (err) return next(err);
+        });
+    },
 
     // csAlarmPlus : function (csId, userId){
     //     UserModel.update({_id : userId},  { $addToSet: {"csAlarm": csId}}, function(err,data){
