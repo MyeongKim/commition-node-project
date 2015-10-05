@@ -45,13 +45,19 @@
 				</div>
 				<div class="card-tag-info">
 					{{#each this.type_one.tag}}
+						{{#if this}}
 						<a href="">#{{this}}</a>
+						{{/if}}
 					{{/each}}
 					{{#each this.type_two.tag}}
+						{{#if this}}
 						<a href="">#{{this}}</a>
+						{{/if}}
 					{{/each}}
 					{{#each this.type_three.tag}}
+						{{#if this}}
 						<a href="">#{{this}}</a>
+						{{/if}}
 					{{/each}}
 				</div>
 				<div class="card-detail-page">

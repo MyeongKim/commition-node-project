@@ -179,9 +179,9 @@ router.post('/', cpUpload, function(req, res, next) {
 
 		console.log(type_one_files_name_array, type_two_files_name_array, type_three_files_name_array, thumbnail_files_name_array);
 		
-		var tagArray1 = req.body.type_one_tag.split(',');
-		var tagArray2 = req.body.type_two_tag.split(',');
-		var tagArray3 = req.body.type_three_tag.split(',');
+		var tagArray1 = req.body.type_one_tag.replace(/\s/g, "").split(',');
+		var tagArray2 = req.body.type_two_tag.replace(/\s/g, "").split(',');
+		var tagArray3 = req.body.type_three_tag.replace(/\s/g, "").split(',');
 
 		var newCommition = new Commition({
 				time : time,
