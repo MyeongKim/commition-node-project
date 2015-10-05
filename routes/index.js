@@ -12,7 +12,7 @@ router.get('/scroll', function(req, res, next) {
 
 // commition page
 router.get('/detail', function(req, res, next) {
-  res.render('detail');
+  res.render('detail', {logInUser : req.user});
 });
 
 

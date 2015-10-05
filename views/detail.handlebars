@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="detail-commition-info-buttons">
-			<button class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button>
+			<button id="heartButton" class="btn btn-danger btn-lg isFan{{isFan}}"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button>
 			<button class="btn btn-success btn-lg">신청하기</button>
 		</div>
 	</div>
@@ -186,7 +186,18 @@
 	(function(){
 		var socket = io.connect('http://127.0.0.1:8080');
 		$(function(){
-			socket.emit('viewPlus', { csId: {{commition._id}} });
+			socket.emit('viewPlus', { csId: "{{commition._id}}"});
+
+			$('#heartButton').click(function(){
+				if({{isFan}}){
+					socket.emit('cancelHeartPlus', { csId: "{{commition._id}}", userId : "{{loginUser._id}}"});
+					location.href = '/';
+				} else {
+					socket.emit('heartPlus', { csId: "{{commition._id}}", userId : "{{loginUser._id}}"});
+					location.href = '/';
+				}
+			});
+
 		});
 	})();
 </script>

@@ -17,9 +17,19 @@ router.get('/:id', function(req, res, next) {
 		.populate('user')
 		.exec(function (err, commition) {
 			if (err) return handleError(err);
+
+			var isFan;
+			if(commition.fans.indexOf(req.user._id) > -1){
+				// login User is already fan
+				isFan = true;
+			} else {
+				isFan = false;
+			}
 			var options = {
 				commition : commition,
 				user : commition.user,
+				loginUser : req.user,
+				isFan : isFan,
 				helpers: {
 	            	isSingle: function (array) { 
 	            		if (array.length === 1){
@@ -43,9 +53,6 @@ router.get('/:id', function(req, res, next) {
 	            		} else {
 							return string
 	            		}
-	            	},
-	            	socketTest : function(){
-	            		// return windows.alert('sdf');
 	            	}
 	       		}
 			};

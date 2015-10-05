@@ -10,24 +10,21 @@ var Commition = require('./models/commition');
 // var UserModel = require('./models/model.js').UserModel;
 
 module.exports = {
-
-    // heartPlus : function(csId , userId){
-    //     CommitModel.findOne({_id : csId}).exec(function (err,data) {
-    //             CommitModel.update({_id : csId}, { $addToSet: {"fans": userId}}).exec(function (err, data) {
-    //                 if (err) return next(err);
-    //                 console.log("push success");
-    //                 console.log(data);
-    //             });
-    //     });
-    // },
-
-    // cancelHeartPlus : function (csId, userId) {
-    //     CommitModel.update({_id : csId}, { $pull: {"fans": userId}}, function(err,data){
-    //         if (err) return next(err);
-    //         console.log("pull success");
-    //     });
-    // },
-
+    heartPlus : function(csId , userId){
+        Commition.findOne({_id : csId}).exec(function (err,data) {
+                Commition.update({_id : csId}, { $addToSet: {"fans": userId}}).exec(function (err, data) {
+                    if (err) return next(err);
+                    console.log("push success");
+                    console.log(data);
+                });
+        });
+    },
+    cancelHeartPlus : function (csId, userId) {
+        Commition.update({_id : csId}, { $pull: {"fans": userId}}, function(err,data){
+            if (err) return next(err);
+            console.log("pull success");
+        });
+    },
     viewPlus : function(csId){
         Commition.update({_id : csId},  { $inc: { view: 1 }}, function(err,data){
             if (err) return next(err);

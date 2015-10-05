@@ -38,6 +38,15 @@ io.on('connection', function (socket) {
     socket.on('followMinus', function(data) {
         socketFunction.followMinus(data.creatorId, data.userId);
     });
+    socket.on('viewPlus', function(data) {
+        socketFunction.viewPlus(data.csId);
+    });
+    socket.on('heartPlus', function(data) {
+        socketFunction.heartPlus(data.csId, data.userId);
+    });
+    socket.on('cancelHeartPlus', function(data) {
+        socketFunction.cancelHeartPlus(data.csId, data.userId);
+    });
   });
 
 /**

@@ -18,6 +18,10 @@ var commitionSchema = mongoose.Schema({
 		type: Number,
 		default:0
 	},
+	fans : [{
+		type: Schema.Types.ObjectId,
+		ref: 'User'
+	}],
 	title : {
 		type: String
 	},

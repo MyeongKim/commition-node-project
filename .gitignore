@@ -1,6 +1,7 @@
 node_modules/
 .gitignore
 .elasticbeanstalk/
+public/uploads
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

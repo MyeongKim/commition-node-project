@@ -25,19 +25,9 @@ var storage = multer.diskStorage({
     cb(null, './public/uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, 'invalid-'+ (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname)
+    cb(null, 'invalid-'+ (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname.replace(/\s/g, "-"))
   }
 });
-
-var storage2 = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, (req.user.email || req.user.twitterId) +'-'+ req.body.time +'-'+ file.originalname)
-  }
-});
-
 
 var preUpload = multer({ storage: storage});
 
@@ -168,22 +158,22 @@ router.post('/', cpUpload, function(req, res, next) {
 		var thumbnail_files_name_array 			= [];
 
 		for (var i = 0 ; i < type_one_files_name_length ; i++){
-			var validName = type_one_files_name[i].filename.replace("invalid","valid");
+			var validName = type_one_files_name[i].filename.replace("invalid","valid").replace(/\s/g, "-");
 			type_one_files_name_array.push(validName);
 		}
 
 		for (var i = 0 ; i < type_two_files_name_length ; i++){
-			var validName = type_two_files_name[i].filename.replace("invalid","valid");
+			var validName = type_two_files_name[i].filename.replace("invalid","valid").replace(/\s/g, "-");
 			type_two_files_name_array.push(validName);
 		}
 
 		for (var i = 0 ; i < type_three_files_name_length ; i++){
-			var validName = type_three_files_name[i].filename.replace("invalid","valid");
+			var validName = type_three_files_name[i].filename.replace("invalid","valid").replace(/\s/g, "-");
 			type_three_files_name_array.push(validName);
 		}
 
 		for (var i = 0 ; i < 3 ; i++){
-			var validName = thumbnail_files_name[i].filename.replace("invalid","valid");
+			var validName = thumbnail_files_name[i].filename.replace("invalid","valid").replace(/\s/g, "-");
 			thumbnail_files_name_array.push(validName);
 		}
 

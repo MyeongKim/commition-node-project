@@ -84,6 +84,7 @@ a {
 }
 
 .image-card .thumbnail-image .thumbnail-image-each{
+	display: block;
 	width: 33.333%;
 	float: left;
     height: 200px;
@@ -574,6 +575,10 @@ ul.success li{
 .detail-body .detail-commition-info .detail-commition-info-buttons button{
 	width: 30%;
 	margin: 10px;
+}
+
+.detail-body .detail-commition-info .detail-commition-info-buttons button.isFantrue{
+	font-color: black;
 }
 
 .detail-body .detail-commition-data{
