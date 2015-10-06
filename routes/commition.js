@@ -19,17 +19,21 @@ router.get('/:id', function(req, res, next) {
 			if (err) return handleError(err);
 
 			var isFan;
-			if(commition.fans.indexOf(req.user._id) > -1){
-				// login User is already fan
+			if(req.user && commition.fans.indexOf(req.user._id) > -1){
+			// login User is already fan
 				isFan = true;
 			} else {
 				isFan = false;
 			}
+
+			var isMine = (req.user && req.user._id == commition.user._id);
+
 			var options = {
 				commition : commition,
 				user : commition.user,
 				loginUser : req.user,
 				isFan : isFan,
+				isMine : isMine,
 				helpers: {
 	            	isSingle: function (array) { 
 	            		if (array.length === 1){

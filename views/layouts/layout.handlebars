@@ -53,6 +53,7 @@
             {{#if user}}
               <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
               <li class=""><a href="/user/mypage">{{user.nickname}}</a></li>
+              <li class=""><a href="/user/logout">로그아웃</a></li>
             {{else}}
               <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
               <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>

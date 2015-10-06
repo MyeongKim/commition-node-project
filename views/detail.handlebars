@@ -24,7 +24,12 @@
 				<div class="profile-card-buttons">
 					<button class="btn btn-default">팔로잉</button><a href="">{{user.following.length}}</a>
 					<button class="btn btn-default">팔로워</button><a href="">{{user.follower.length}}</a>
-					<button class="btn btn-primary">팔로우</button>			
+					{{#if isMine}}
+					<button class="btn btn-primary">수정</button>	
+					<button id="deleteButton" class="btn btn-primary">삭제</button>
+					{{else}}
+					<button class="btn btn-primary">팔로우</button>
+					{{/if}}					
 				</div>
 			</div>
 		</div>
@@ -194,6 +199,14 @@
 					location.href = '/';
 				} else {
 					socket.emit('heartPlus', { csId: "{{commition._id}}", userId : "{{loginUser._id}}"});
+					location.href = '/';
+				}
+			});
+
+			$('#deleteButton').click(function(){
+				if(confirm("커미션을 삭제할까요?")){
+					socket.emit('cancelHeartPlus', { csId: "{{commition._id}}", userId : "{{loginUser._id}}"});
+					alert("커미션을 삭제했습니다.");
 					location.href = '/';
 				}
 			});
