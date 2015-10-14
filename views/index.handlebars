@@ -66,10 +66,11 @@
 			</div>
 		</div>
 	{{/each}}
-			
-	<div class="scroll">
-		<a href="/scroll">next page</a>
-	</div>	
+	{{#if moreLoad}}
+		<div class="scroll">
+			<a href="/scroll/{{align}}/{{lastValue}}">next page</a>
+		</div>	
+	{{/if}}
 </div>
 
 

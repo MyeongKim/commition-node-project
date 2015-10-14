@@ -1,115 +1,47 @@
-<div class="image-card">
-	<div class="thumbnail-image">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)">
+{{#each commitions}}
+		<div class="image-card">
+			<div class="thumbnail-image">
+				{{#each this.thumbnail_files_name}}
+					<div class="thumbnail-image-each" style="background-image: url(http://127.0.0.1:8080/uploads/{{this}})"></div>
+				{{/each}}
+			</div>
+			<div class="image-detail">
+				<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
+				{{#if this.twitterId}}
+					<a href="">{{this.twitterId}}</a>
+				{{else}}
+					<a href="">{{this.twitterId}}</a>
+				{{/if}}
+				<div class="card-view-heart-info">
+					<span class="glyphicon glyphicon-eye-open" aria-hidden="true">{{this.view}}</span>
+					<span class="glyphicon glyphicon-heart" aria-hidden="true">{{this.heart}}</span>
+				</div>
+				<div class="card-tag-info">
+					{{#each this.type_one.tag}}
+						{{#if this}}
+						<a href="">#{{this}}</a>
+						{{/if}}
+					{{/each}}
+					{{#each this.type_two.tag}}
+						{{#if this}}
+						<a href="">#{{this}}</a>
+						{{/if}}
+					{{/each}}
+					{{#each this.type_three.tag}}
+						{{#if this}}
+						<a href="">#{{this}}</a>
+						{{/if}}
+					{{/each}}
+				</div>
+				<div class="card-detail-page">
+					<a href="/commition/{{this._id}}">more</a>
+				</div>
+			</div>
+		</div>
+{{/each}}
+
+{{#if lastValue}}
+	<div class="next">
+		<a href="/scroll/{{align}}/{{lastValue}}">Next content</a>			
 	</div>
-	<div class="image-detail">
-		<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-		<a href="">누코</a>
-		<div class="card-view-heart-info">
-			<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-			<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-		</div>
-		<div class="card-tag-info">
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-		</div>
-		<div class="card-detail-page">
-			<a href="">more</a>
-		</div>
-	</div>
-</div>
-<div class="image-card">
-	<div class="thumbnail-image">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)">
-	</div>
-	<div class="image-detail">
-		<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-		<a href="">누코</a>
-		<div class="card-view-heart-info">
-			<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-			<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-		</div>
-		<div class="card-tag-info">
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-		</div>
-		<div class="card-detail-page">
-			<a href="">more</a>
-		</div>
-	</div>
-</div>
-<div class="image-card">
-	<div class="thumbnail-image">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)">
-	</div>
-	<div class="image-detail">
-		<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-		<a href="">누코</a>
-		<div class="card-view-heart-info">
-			<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-			<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-		</div>
-		<div class="card-tag-info">
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-		</div>
-		<div class="card-detail-page">
-			<a href="">more</a>
-		</div>
-	</div>
-</div>
-<div class="image-card">
-	<div class="thumbnail-image">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)">
-		<img class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)">
-	</div>
-	<div class="image-detail">
-		<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-		<a href="">누코</a>
-		<div class="card-view-heart-info">
-			<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-			<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-		</div>
-		<div class="card-tag-info">
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-			<a href="">#태그</a>
-		</div>
-		<div class="card-detail-page">
-			<a href="">more</a>
-		</div>
-	</div>
-</div>
-<div class="next">
-	<a href="/scroll">Next content</a>			
-</div>
+{{/if}}
