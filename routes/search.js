@@ -52,31 +52,36 @@ router.get('/duedate', function(req, res, next) {
 
 router.post('/keyword', function(req, res, next) {
   var keyword = req.body.keyword;
-  var opts = { path: 'user', match: {$or : [{ nickname : new RegExp(keyword, 'i')}, { email : new RegExp(keyword, 'i')} ]}}
-    
-  Commition.find({})
-    .populate(opts)
-    .or([{title: new RegExp(keyword, 'i')},
-      {email: new RegExp(keyword, 'i')},
-      {twitterId: new RegExp(keyword, 'i')},
-      {'type_one.tag' : new RegExp(keyword, 'i')},
-      {'type_two.tag' : new RegExp(keyword, 'i')},
-      {'type_three.tag' : new RegExp(keyword, 'i')}])
+  var re = new RegExp(keyword, "g");
+
+  Commition.find()
+    .populate({path: 'user', match: {$or : [{ nickname : new RegExp(keyword, 'i')}, { email : new RegExp(keyword, 'i')} ]}})
     .sort({'time' : -1}).limit(10).exec(function(err, commitions) {
       if(err){
         console.log(err);
       }
+      commitions = commitions.filter(function(doc){
+          if( doc.user != null || re.test(doc.title) || re.test(doc.type_one.tag) || re.test(doc.type_two.tag) || re.test(doc.type_three.tag)){
+            return true;
+          } else {
+            return false;
+          }
+      });
+
+      console.log("======================================")
+      console.log("Query result :"+ commitions);
+
       if(commitions.length == 0){
+
         console.log("There is no result");
         var options = {
-          commitions : commitions,
-          align : 'new',
-          lastValue : 0,
-          moreLoad : false,
-          keyword : keyword
-        }
+                  commitions : commitions,
+                  align : 'new',
+                  lastValue : 0,
+                  moreLoad : false,
+                  keyword : keyword
+                }
         res.render('index', options);
-      
       } else{
         var options = {
           commitions : commitions,
@@ -90,41 +95,4 @@ router.post('/keyword', function(req, res, next) {
       
     });
   });
-
-  //   Commition.populate('user').find( {$or : [{title: new RegExp(keyword, 'i')},
-  //   {email: new RegExp(keyword, 'i')},
-  //   {twitterId: new RegExp(keyword, 'i')},
-  //   {'type_one.tag' : new RegExp(keyword, 'i')},
-  //   {'type_two.tag' : new RegExp(keyword, 'i')},
-  //   {'type_three.tag' : new RegExp(keyword, 'i')},
-  //   {'user.nickname' : new RegExp(keyword, 'i')},
-  //   {'user.email' : new RegExp(keyword, 'i')},
-  //   {'user.twitterId' : new RegExp(keyword, 'i')},
-
-
-  //   ]})
-  //   .sort({'time' : -1}).limit(10).exec(function(err, commitions1) {
-  //     if(err){
-  //       console.log(err);
-  //     }
-
-  //     User.find({nickname : new RegExp(keyword, 'i'), email : new RegExp(keyword, 'i'), twitterId : new RegExp(keyword, 'i')})
-  //     .sort({'time' : -1}).limit(10).exec(function(err, commitions2) {
-  //       if(err){
-  //         console.log(err);
-  //       }
-
-  //       var options = {
-  //         commitions : commitions1.concat(commitions2),
-  //         align : 'new',
-  //         lastValue : commitions1[commitions1.length-1].time,
-  //         moreLoad : (commitions1.length > 10 ? true : false),
-  //         keyword : keyword
-  //       }
-  //       res.render('index', options);
-  //   });
-  // });
-// });
-
-
 module.exports = router;
