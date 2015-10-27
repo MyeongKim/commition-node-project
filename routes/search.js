@@ -51,11 +51,21 @@ router.get('/duedate', function(req, res, next) {
 });
 
 router.post('/keyword', function(req, res, next) {
-  var keyword = req.body.keyword;
-  var re = new RegExp(keyword, "g");
+  var keyword = req.body.keyword.split(' ');
+  var regExpression = "(";
+  for(var i = 0 ; i < keyword.length ; i++){
+    regExpression += keyword[i];
+
+    if( i != keyword.length-1){
+      regExpression += "|";
+    }
+  }
+  regExpression += ')';
+  console.log(regExpression);
+  var re = new RegExp(regExpression, "g");
 
   Commition.find()
-    .populate({path: 'user', match: {$or : [{ nickname : new RegExp(keyword, 'i')}, { email : new RegExp(keyword, 'i')} ]}})
+    .populate({path: 'user', match: {$or : [{ nickname : re}, { email : re} ]}})
     .sort({'time' : -1}).limit(10).exec(function(err, commitions) {
       if(err){
         console.log(err);
