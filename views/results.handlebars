@@ -2,7 +2,7 @@
 	<div class="intro-div">
 		<h3>커미션을 쉽게 등록하고 검색할 수 있습니다.</h3>
 		<p>
-		현재 커미션이 진행중입니다. 
+		"{{ keyword }}" 검색 결과입니다. 
 		</p>
 		
 	</div>
@@ -19,9 +19,9 @@
 		</div>
 	</form>
 	<div class="btn-group align-btn" role="group" aria-label="...">
-	  <a class="btn btn-default {{#if newActive }} active {{/if}}" href="/search/new" role="button">최신순</a>
-	  <a class="btn btn-default {{#if viewActive }} active {{/if}}" href="/search/view" role="button">조회순</a>
-	  <a class="btn btn-default {{#if duedateActive }} active {{/if}}" href="/search/duedate" role="button">마감순</a>
+	  <a class="btn btn-default {{#if newActive }} active {{/if}}" href="/search/{{ urlKeyword }}/new" role="button">최신순</a>
+	  <a class="btn btn-default {{#if viewActive }} active {{/if}}" href="/search/{{ urlKeyword }}/view" role="button">조회순</a>
+	  <a class="btn btn-default {{#if duedateActive }} active {{/if}}" href="/search/{{ urlKeyword }}/duedate" role="button">마감순</a>
 	</div>
 </div>
 
