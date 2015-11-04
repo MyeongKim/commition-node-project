@@ -39,6 +39,14 @@ var userSchema = mongoose.Schema({
     	type: mongoose.Schema.Types.ObjectId,
     	ref : 'Commition'
     }],
+    requestSend : [{
+    	type: mongoose.Schema.Types.ObjectId,
+    	ref : 'Request'
+    }],
+    requestReceive : [{
+    	type: mongoose.Schema.Types.ObjectId,
+    	ref : 'Request'
+    }],
     alarmMessage: [{
     	type: String
     }],

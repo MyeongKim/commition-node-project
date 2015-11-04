@@ -25,12 +25,12 @@ router.get('/:id', function(req, res, next) {
 			} else {
 				isFan = false;
 			}
-
 			var isMine = (req.user && req.user._id == commition.user._id);
 			var isFollow = (req.user && commition.user.follower.indexOf(req.user._id) > -1);
 			var options = {
 				commition : commition,
 				loginUser : req.user,
+				isLogin : req.user ? true : false,
 				isFan : isFan,
 				isMine : isMine,
 				isFollow : isFollow,

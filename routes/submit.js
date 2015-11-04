@@ -5,7 +5,10 @@ var fs = require('fs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 // Include User Model
+var User = require('../models/user');
 var Commition = require('../models/commition');
+var Request = require('../models/request');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -234,8 +237,67 @@ router.post('/', cpUpload, function(req, res, next) {
 		req.flash('success', '커미션이 성공적으로 등록되었습니다.');
 		res.redirect('/');
 	}
-
-
 });
+
+// multer upload settings
+
+var requestStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/request_refer_image')
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.user.nickname +'-'+ req.body.time +'-'+ file.originalname.replace(/\s/g, "-"))
+  }
+});
+
+var requestPreUpload = multer({ storage: requestStorage});
+
+router.post('/request', requestPreUpload.array('refer_files_name', 9), function(req, res, next) {
+
+	var time 						= req.body.time;
+	var to 							= req.body.toUser;
+	var ref_commition				= req.body.ref_commition;
+	var nickname 					= req.body.nickname;
+	var type    					= req.body.type;
+	var phone						= req.body.phone;
+	var deposit_name     			= req.body.deposit_name;
+	var request_desc    			= req.body.request_desc;
+	var refer_files_name_array 		= [];
+
+	for (var i = 0 ; i < req.files.length ; i++){
+			var filename = req.files[i].filename.replace(/\s/g, "-");
+			refer_files_name_array.push(filename);
+		}
+
+	var newRequest = new Request({
+		time : time,
+		from : req.user._id,
+		to : to,
+		ref_commition : ref_commition,
+		type : type,
+		phone : phone,
+		deposit_name : deposit_name,
+		request_desc : request_desc,
+		refer_files_name : refer_files_name_array
+	});
+
+	console.log(newRequest);
+
+	newRequest.save(function(err, data){
+        if (err) { console.log(err); throw err}
+        console.log('request document created');
+    });
+
+	User.update({_id : to},  { $addToSet: {"requestReceive": newRequest._id}}, function(err,data){
+        if (err) return next(err);
+        User.update({_id : req.user._id},  { $addToSet: {"requestSend": newRequest._id}}, function(err,data){
+            if (err) return next(err);
+        });
+    });
+
+	req.flash('success', '성공적으로 신청하였습니다.');
+	res.redirect('back');
+});
+
 
 module.exports = router;

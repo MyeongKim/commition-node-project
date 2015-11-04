@@ -49,7 +49,16 @@
 		</div>
 		<div class="detail-commition-info-buttons">
 			<button id="heartButton" class="btn btn-danger btn-lg isFan{{isFan}}"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button>
-			<button class="btn btn-success btn-lg">신청하기</button>
+			{{#if isMine}}
+
+			{{else}}
+				{{#if isLogin}}
+					<button id="buyButton" class="btn btn-success btn-lg" data-toggle="modal" data-target="#buyModal">신청하기</button>
+				{{else}}
+					<button id="buyButtonWait" class="btn btn-success btn-lg">신청하기</button>
+				{{/if}}
+			{{/if}}
+
 		</div>
 	</div>
 	<div class="detail-commition-data">
@@ -188,14 +197,69 @@
 				<button class="btn btn-default">가격</button>
 				<p>{{inputText commition.type_three.price}}</p>
 			</div>
+			{{loginUser}}
 		</div>
 	</div>
 </div>
+
+{{!-- buy modal --}}
+<div class="modal fade" id="buyModal">
+  	<div class="modal-dialog">
+		<div class="modal-content">
+	  		<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">신청 페이지</h4>
+	  		</div>
+		  	<div class="modal-body">
+				<form id="requestForm" method="post" action="/submit/request" enctype="multipart/form-data" >
+					<input type="hidden" id="time" name="time">
+					<input type="hidden" name="toUser" value="{{commition.user._id}}">
+					<input type="hidden" name="ref_commition" value="{{commition._id}}">
+			  		<div class="form-group">
+						<label class="control-label">닉네임</label>
+						<input type="text" name="nickname" class="form-control" value="{{loginUser.nickname}}" readonly>
+			  		</div>
+			  		<div class="form-group">
+						<label class="control-label">타입</label>
+						<select name="type" class="form-control">
+							<option>타입 1</option>
+							<option>타입 2</option>
+							<option>타입 3</option>
+						</select>
+			  		</div>
+			  		<div class="form-group">
+						<label class="control-label">연락처</label>
+						<input type="text" name="phone" class="form-control" value="">
+			  		</div>
+			  		<div class="form-group">
+						<label class="control-label">입금자명</label>
+						<input type="text" name="deposit_name" class="form-control" value="">
+			  		</div>
+			  		<div class="form-group">
+						<label class="control-label">요청사항</label>
+						<textarea name="request_desc" class="form-control" rows="3"></textarea>
+			  		</div>
+			  		<div class="form-group">
+			  			<label class="control-label">사진자료 선택</label>
+						<input type="file" name="refer_files_name" multiple>
+						<p class="help-block">캐릭터 외향이나 포즈에 대한 참고 사진자료를 첨부해주세요.</p>
+					</div>  		
+				</form>
+		  	</div>
+		  	<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				<button type="submit" id="requestFormSubmitButton" class="btn btn-primary">신청하기</button>
+		  	</div>
+		</div>
+  	</div>
+</div>
+
 <script type="text/javascript">
 	(function(){
 		var socket = io.connect('http://127.0.0.1:8080');
 		$(function(){
 			socket.emit('viewPlus', { csId: "{{commition._id}}"});
+			document.getElementById("time").value = Date.now();
 
 			$('#heartButton').click(function(){
 				if({{isFan}}){
@@ -227,6 +291,18 @@
 				location.reload();
 			});
 
+			$('#buyButton').click(function(){
+
+			});
+
+			$('#buyButtonWait').click(function(){
+				alert("먼저 로그인해주세요.")
+				location.href= '/user/login';
+			});
+
+			$('#requestFormSubmitButton').click(function(){
+				$('#requestForm').submit();
+			});
 		});
 	})();
 </script>

@@ -48,7 +48,6 @@ module.exports = {
                 if (err) return next(err);
             });
         });
-
     },
     followMinus : function (creatorId, userId){
         User.update({_id : creatorId},  { $pull: {"follower": userId}}, function(err,data){
