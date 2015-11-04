@@ -106,9 +106,6 @@
     <!-- jscroll code -->
     <script type="text/javascript">
       $(document).ready(function(){
-        var data = JSON.stringify({{data}});
-        var userId = JSON.stringify({{userId}});
-        var mine = JSON.stringify({{mine}});
         // socket.io connection
         var socket = io.connect('http://127.0.0.1:8080');
 
@@ -132,23 +129,6 @@
               $alarmDiv.addClass('bell-alarm-div-hidden');
             });
           }
-        });
-
-        // submit.handlebars js
-        var unsaved = false;
-
-        $(":input").change(function(){
-          unsaved = true;
-        });
-        $(window).bind('beforeunload', function(){
-
-          if(unsaved){
-            return '페이지에서 나가시겠습니까?';
-          }
-        });
-
-        $('form').submit(function(){
-          $(window).unbind('beforeunload'); 
         });
 
         $(".slider-target").skippr({

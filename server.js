@@ -59,6 +59,7 @@ app.use(session({
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate('remember-me'));
 
 // Express Validator
 app.use(expressValidator({

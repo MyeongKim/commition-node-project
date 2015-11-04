@@ -8,6 +8,8 @@ var nodemailer = require('nodemailer');
 
 var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var RememberMeStrategy = require('passport-remember-me').Strategy;
+
 
 var User = require('../models/user');
 
@@ -17,24 +19,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/mypage/:nickname', function(req,res,next){
-    // User.findOne({ nickname : req.params.nickname}).exec(function (err, data) {
-    //     res.format({
-    //         'html' : function(){
-    //             var userId = (req.user == undefined) ? "null" : req.user._id;
-    //             var infos = {
-    //             	userId : userId,
-    //             	user : req.user,
-    //             	mine : (userId == data._id) ? true : false,
-    //             	active : 1,
-    //             	data : data
-    //             };
-    //             res.render('mypage', infos);
-    //         },
-    //         'application/json' : function(){
-    //             res.send(data);
-    //         }
-    //     });
-    // });
     User.findOne({ nickname : req.params.nickname}).exec(function (err, user) {
         if (err) return handleError(err);
         var isFollow = (req.user && user.follower.indexOf(req.user._id) > -1);
@@ -171,10 +155,38 @@ passport.use(new TwitterStrategy({
   }
 ));
 
-router.post('/login', passport.authenticate('local',{failureRedirect:'/user/login', failureFlash:'Invalid nickname or password'}), function(req, res){
-	console.log('Authentication Successful');
-	req.flash('success', 'You are logged in');
-	res.redirect('/');
+passport.use(new RememberMeStrategy(
+  function(token, done) {
+    Token.consume(token, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user);
+    });
+  },
+  function(user, done) {
+    var token = utils.generateToken(64);
+    Token.save(token, { userId: user.id }, function(err) {
+      if (err) { return done(err); }
+      return done(null, token);
+    });
+  }
+));
+
+router.post('/login', passport.authenticate('local',{failureRedirect:'/user/login', failureFlash:'Invalid nickname or password'}),function(req, res, next) {
+    // issue a remember me cookie if the option was checked
+    if (!req.body.remember_me) { return next(); }
+
+    var token = utils.generateToken(64);
+    Token.save(token, { userId: req.user.id }, function(err) {
+      if (err) { return done(err); }
+      res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
+      return next();
+    });
+
+    },function(req, res){
+        console.log('Authentication Successful');
+    	req.flash('success', 'You are logged in');
+    	res.redirect('/');
 });
 
 router.get('/auth/twitter',

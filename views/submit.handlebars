@@ -442,11 +442,31 @@
 	</div>
 </form>
 <script type="text/javascript">
-	document.getElementById("time").value = Date.now();
-	document.getElementById("process").value = "{{process}}";
-	document.getElementById("warning").value = "{{warning}}";
-	document.getElementById("etc").value = "{{etc}}";
-	document.getElementById("type_one_type_desc").value = "{{type_one_type_desc}}";
-	document.getElementById("type_two_type_desc").value = "{{type_two_type_desc}}";
-	document.getElementById("type_three_type_desc").value = "{{type_three_type_desc}}";
+	(function(){
+		$(function(){
+			document.getElementById("time").value = Date.now();
+			document.getElementById("process").value = "{{process}}";
+			document.getElementById("warning").value = "{{warning}}";
+			document.getElementById("etc").value = "{{etc}}";
+			document.getElementById("type_one_type_desc").value = "{{type_one_type_desc}}";
+			document.getElementById("type_two_type_desc").value = "{{type_two_type_desc}}";
+			document.getElementById("type_three_type_desc").value = "{{type_three_type_desc}}";
+
+	        var unsaved = false;
+
+	        $(":input").change(function(){
+	          unsaved = true;
+	        });
+	        $(window).bind('beforeunload', function(){
+
+	          if(unsaved){
+	            return '페이지에서 나가시겠습니까?';
+	          }
+	        });
+
+	        $('form').submit(function(){
+	          $(window).unbind('beforeunload'); 
+	        });
+		});
+	})();
 </script>
