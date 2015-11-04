@@ -12,13 +12,15 @@
 		<div class="profile-card-buttons">
 			<button class="btn btn-default">팔로잉</button><a href="">{{data.following.length}}</a>
 			<button class="btn btn-default">팔로워</button><a href="">{{data.follower.length}}</a>
-			<button id="mypage_profile_button" class="btn btn-primary" mine='{{mine}}'>
-				{{#if mine}}
-					프로필 수정
+			{{#if isMine}}
+				<button id="mypage_profile_button" class="btn btn-primary" >프로필 수정</button>
+			{{else}}
+				{{#if isFollow}}
+					<button id="unfollowButton" class="btn btn-primary" >언팔로우</button>
 				{{else}}
-					팔로우 
+					<button id="followButton" class="btn btn-primary" >팔로우</button>
 				{{/if}}
-			</button>			
+			{{/if}}
 		</div>
 		<div class="profile-card-info-icon">
 			<a href=""><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
@@ -215,3 +217,25 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	(function(){
+		var socket = io.connect('http://127.0.0.1:8080');
+		$(function(){
+
+			$('#mypage_profile_button').click(function(){
+				alert("프로필 수정");
+			});
+
+			$('#followButton').click(function(){
+				socket.emit('followPlus', { creatorId: "{{data._id}}", userId : "{{loginUser._id}}"});
+				location.reload();
+			});
+
+			$('#unfollowButton').click(function(){
+				socket.emit('followMinus', { creatorId: "{{data._id}}", userId : "{{loginUser._id}}"});
+				location.reload();
+			});
+
+		});
+	})();
+</script>

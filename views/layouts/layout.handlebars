@@ -53,7 +53,7 @@
           <ul class="nav navbar-nav navbar-right">
             {{#if user}}
               <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
-              <li class=""><a href="/user/mypage">{{user.nickname}}</a></li>
+              <li class=""><a href="/user/mypage/{{user.nickname}}">{{user.nickname}}</a></li>
               <li class=""><a href="/user/logout">로그아웃</a></li>
             {{else}}
               <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
@@ -154,30 +154,6 @@
         $(".slider-target").skippr({
           navType: 'bubble'
         });
-
-        // alert({{userId}});
-        // http://stackoverflow.com/questions/29174185/accessing-handlebars-variable-inside-client-js-file
-        // socket.io of mypage js
-        $('#mypage_profile_button').click(function(e){
-          var mine = $(this).attr('mine');
-          // check if this profile is mine
-          if(mine === true){
-            // this profile is mine
-            alert("프로필 수정은 차후에");
-          } else {
-            // this profile is not mine
-            if(data.following.indexOf(userId) < 0){
-              // I'm not following this user
-              socket.emit("followPlus", { creatorId: data._id, userId: userId });
-            }else {
-              // I'm already following this user
-              socket.emit("followMinus", { creatorId: this.state.data._creator._id, userId: userId });
-            }
-          }
-        });
-
-        // detail commition page js
-
 
       });
     </script>

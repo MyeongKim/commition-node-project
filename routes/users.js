@@ -17,23 +17,35 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/mypage/:nickname', function(req,res,next){
-    User.findOne({ nickname : req.params.nickname}).exec(function (err, data) {
-        res.format({
-            'html' : function(){
-                var userId = (req.user == undefined) ? "null" : req.user._id;
-                var infos = {
-                	userId : userId,
-                	user : req.user,
-                	mine : (userId == data._id) ? true : false,
-                	active : 1,
-                	data : data
-                };
-                res.render('mypage', infos);
-            },
-            'application/json' : function(){
-                res.send(data);
-            }
-        });
+    // User.findOne({ nickname : req.params.nickname}).exec(function (err, data) {
+    //     res.format({
+    //         'html' : function(){
+    //             var userId = (req.user == undefined) ? "null" : req.user._id;
+    //             var infos = {
+    //             	userId : userId,
+    //             	user : req.user,
+    //             	mine : (userId == data._id) ? true : false,
+    //             	active : 1,
+    //             	data : data
+    //             };
+    //             res.render('mypage', infos);
+    //         },
+    //         'application/json' : function(){
+    //             res.send(data);
+    //         }
+    //     });
+    // });
+    User.findOne({ nickname : req.params.nickname}).exec(function (err, user) {
+        if (err) return handleError(err);
+        var isFollow = (req.user && user.follower.indexOf(req.user._id) > -1);
+        var isMine = (req.user && req.user._id == user._id);
+        var options = {
+            loginUser : req.user,
+            isFollow : isFollow,
+            isMine : isMine,
+            data : user,
+        };
+        res.render('mypage', options);
     });
 });
 
@@ -136,7 +148,7 @@ passport.use(new LocalStrategy({
 passport.use(new TwitterStrategy({
 	consumerKey: 'iLE5MMmOwR90BlejYeyeUtxRT',
 	consumerSecret: 'CMfbxk0mPeK9fz3omhqpbwrHFCeRq98dLkDuV4ftYy0Mahuthr',
-	callbackURL: "http://127.0.0.1:3000/user/auth/twitter/callback"
+	callbackURL: "http://127.0.0.1:8080/user/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
 	User.findOne({ twitterId : profile.id }, function (err, user) {

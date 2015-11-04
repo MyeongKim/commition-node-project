@@ -27,13 +27,13 @@ router.get('/:id', function(req, res, next) {
 			}
 
 			var isMine = (req.user && req.user._id == commition.user._id);
-
+			var isFollow = (req.user && commition.user.follower.indexOf(req.user._id) > -1);
 			var options = {
 				commition : commition,
-				user : commition.user,
 				loginUser : req.user,
 				isFan : isFan,
 				isMine : isMine,
+				isFollow : isFollow,
 				helpers: {
 	            	isSingle: function (array) { 
 	            		if (array.length === 1){

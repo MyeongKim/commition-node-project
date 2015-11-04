@@ -31,6 +31,14 @@ var userSchema = mongoose.Schema({
     	type: mongoose.Schema.Types.ObjectId,
     	ref : 'User'
     }],
+    hearted : [{
+    	type: mongoose.Schema.Types.ObjectId,
+    	ref : 'Commition'
+    }],
+    bought : [{
+    	type: mongoose.Schema.Types.ObjectId,
+    	ref : 'Commition'
+    }],
     alarmMessage: [{
     	type: String
     }],
