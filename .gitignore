@@ -2,7 +2,9 @@ node_modules/
 .gitignore
 .elasticbeanstalk/
 public/uploads
+public/images
 .DS_Store
+npm-debug.log
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

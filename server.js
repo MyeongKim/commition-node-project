@@ -107,6 +107,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.locals.truncateText = function(text, length){
+  var truncatedText = test.substring(0, length);
+  return truncatedText;
+}
+
 
 // Makes the user object global in all views
 app.get('*', function(req, res, next) {

@@ -5,6 +5,7 @@ var async = require('async');
 var crypto = require('crypto');
 var bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
+var moment = require('moment');
 
 var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
@@ -12,6 +13,8 @@ var RememberMeStrategy = require('passport-remember-me').Strategy;
 
 
 var User = require('../models/user');
+var Request = require('../models/request');
+var Commition = require('../models/commition');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -19,15 +22,78 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/mypage/:nickname', function(req,res,next){
-    User.findOne({ nickname : req.params.nickname}).exec(function (err, user) {
-        if (err) return handleError(err);
-        var isFollow = (req.user && user.follower.indexOf(req.user._id) > -1);
-        var isMine = (req.user && req.user._id == user._id);
+    var isFollow, isMine;
+    // var requestSendArray = [] , requestReceiveArray = [];
+    async.waterfall([
+        function(callback) {
+            User.findOne({nickname : req.params.nickname}).exec(function(err, user){
+                if (err) throw err;
+                user = user;
+                isFollow = (req.user && user.follower.indexOf(req.user._id) > -1);
+                isMine = (req.user && req.user._id == user._id);
+                callback(null, user);
+            });
+        },
+        function(user, callback) {
+            var requestSendArray = [];
+            if(user.requestSend.length !== 0){
+                async.each(user.requestSend, function(requestId, callback){
+                    Request.findById(requestId)
+                        .populate('from to ref_commition')
+                        .exec(function(err, requestSend){
+                            if(err) throw err;
+                            requestSendArray.push(requestSend);
+                            callback();
+                        });
+                }, function(err){
+                    if (err) throw err;
+                    callback(null, user, requestSendArray);
+                });
+            }else {
+                callback(null, user, requestSendArray);
+            }
+        },
+        function(user, requestSendArray, callback) {
+            var requestReceiveArray = [];
+            if(user.requestReceive.length !== 0){
+                async.each(user.requestReceive, function(requestId, callback){
+                    Request.findById(requestId)
+                        .populate('from to ref_commition')
+                        .exec(function(err, requestReceive){
+                            if(err) throw err;
+                            requestReceiveArray.push(requestReceive);
+                            callback();
+                        });
+                }, function(err){
+                    if (err) throw err;
+                    callback(null, user, requestSendArray, requestReceiveArray);
+                });
+            }else {
+                callback(null, user, requestSendArray, requestReceiveArray);
+            }
+        }
+    ], function (err, user, requestSendArray, requestReceiveArray) {
+        if (err) throw err;
+
+        var requestAllArray = requestReceiveArray.concat(requestSendArray);
         var options = {
             loginUser : req.user,
             isFollow : isFollow,
             isMine : isMine,
             data : user,
+            requestSendArray : requestSendArray.sort(function(a,b){return b.time - a.time }),
+            requestReceiveArray : requestReceiveArray.sort(function(a,b){return b.time - a.time}),
+            requestAllArray : requestAllArray.sort(function(a,b){return b.time - a.time}),
+            helpers : {
+                truncate : function (text){
+                    return text.substring(0, 10);
+                },
+                moment : function(time){
+                    moment.locale('ko');
+                    return moment(time).utcOffset(540).fromNow();
+
+                }
+            }
         };
         res.render('mypage', options);
     });
