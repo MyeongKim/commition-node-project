@@ -37,96 +37,64 @@
 	<div class="my-order-list-body">
 		<div class="my-order-list-buttons">
 			<div class="btn-group" role="group" aria-label="...">
-				<button type="button" class="btn btn-default active">전체</button>
-				<button type="button" class="btn btn-default">신청 받은</button>
-				<button type="button" class="btn btn-default">신청 한</button>
+				<button type="button" id="requestAllButton" class="btn btn-default active">전체</button>
+				<button type="button" id="requestReceiveButton" class="btn btn-default">신청 받은</button>
+				<button type="button" id="requestSendButton" class="btn btn-default">신청 한</button>
 			</div>
 		</div>
 		<div class="my-order-list-card-wrapper">
-			{{#each requestSendArray}}
-				<div class="my-order-list-card card-num{{@index}}">
-					<div class="my-order-list-title">
-						<a href="#"><h3>Send{{this.ref_commition.title}}</h3></a>
-						<span>{{moment this.time}}</span>
-						<span class="glyphicon glyphicon-arrow-left send-arrow" aria-hidden="true"></span>			
+			{{#each requestAllArray}}
+				{{#if this.mySendRequest}}
+					<div class="my-order-list-card send-card card-num{{@index}}">
+						<div class="my-order-list-title">
+							<a href="#"><h3>{{this.ref_commition.title}}</h3></a>
+							<span>{{moment this.time}}</span>
+							<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>			
+						</div>
+						<div class="my-order-list-nickname">
+							<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
+							<a href="/user/mypage/{{this.to.nickname}}">{{this.to.nickname}}</a>
+						</div>
+						<p>{{truncate this.request_desc}}<span class="order-desc-more"><a href="#">more</a></span> </p>
 					</div>
-					<div class="my-order-list-nickname">
-						<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-						<a href="/user/mypage/{{this.to.nickname}}">{{this.to.nickname}}</a>
+				{{else}}
+					<div class="my-order-list-card receive-card card-num{{@index}}">
+						<div class="my-order-list-title">
+							<a href="#"><h3>{{this.ref_commition.title}}</h3></a>
+							<span>{{moment this.time}}</span>
+							<span class="glyphicon glyphicon-arrow-left send-arrow" aria-hidden="true"></span>			
+						</div>
+						<div class="my-order-list-nickname">
+							<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
+							<a href="/user/mypage/{{this.from.nickname}}">{{this.from.nickname}}</a>
+						</div>
+						<p>{{truncate this.request_desc}}<span class="order-desc-more"><a href="#">more</a></span> </p>
 					</div>
-					<p>{{truncate this.request_desc}}<span class="order-desc-more"><a href="#">more</a></span> </p>
-				</div>
+				{{/if}}
 			{{/each}}
-			{{#each requestReceiveArray}}
-				<div class="my-order-list-card card-num{{@index}}">
-					<div class="my-order-list-title">
-						<a href="#"><h3>Receive{{this.ref_commition.title}}</h3></a>
-						<span>{{moment this.time}}</span>
-						<span class="glyphicon glyphicon-arrow-left send-arrow" aria-hidden="true"></span>			
-					</div>
-					<div class="my-order-list-nickname">
-						<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-						<a href="/user/mypage/{{this.from.nickname}}">{{this.from.nickname}}</a>
-					</div>
-					<p>{{truncate this.request_desc}}<span class="order-desc-more"><a href="#">more</a></span> </p>
-				</div>
-			{{/each}}
-			<div class="my-order-list-card">
-				<div class="my-order-list-title">
-					<a href="#"><h3>생계형 커미션</h3></a>
-					<span>2015-09-10 13:24</span>
-					<span class="glyphicon glyphicon-arrow-left send-arrow" aria-hidden="true"></span>			
-				</div>
-				<div class="my-order-list-nickname">
-					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-					<a href="">누코</a>
-				</div>
-				<p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her. Rooms he doors there ye aware in by shall. Education remainder in so cordially. His remainder and own dejection daughters sportsmen. Is easy took he shed to kind. <span class="order-desc-more"><a href="#">more</a></span> </p>
-			</div>
-			<div class="my-order-list-card">
-				<div class="my-order-list-title">
-					<a href="#"><h3>생계형 커미션</h3></a>
-					<span>2015-09-10 13:24</span>
-					<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>			
-
-				</div>
-				<div class="my-order-list-nickname">
-					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-					<a href="">누코</a>
-				</div>
-				<p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her. Rooms he doors there ye aware in by shall. Education remainder in so cordially. His remainder and own dejection daughters sportsmen. Is easy took he shed to kind. <span class="order-desc-more"><a href="#">more</a></span>  </p>
-			</div>
-			<div class="my-order-list-card">
-				<div class="my-order-list-title">
-					<a href="#"><h3>생계형 커미션</h3></a>
-					<span>2015-09-10 13:24</span>
-					<span class="glyphicon glyphicon-arrow-left send-arrow" aria-hidden="true"></span>						
-				</div>
-				<div class="my-order-list-nickname">
-					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-					<a href="">누코</a>
-				</div>
-				<p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her. Rooms he doors there ye aware in by shall. Education remainder in so cordially. His remainder and own dejection daughters sportsmen. Is easy took he shed to kind.  <span class="order-desc-more"><a href="#">more</a></span> </p>
-			</div>
+			{{#pagination requestAllArray.length}}
 			<nav>
 				<ul class="pagination">
-					<li>
-						<a href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
-						<a href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
+					{{#unless noArrow}}
+						<li class="previousPage">
+							<a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					{{/unless}}
+					{{#each pages}}
+						<li class="pageNumber"><a id="num{{page}}">{{page}}</a></li>
+					{{/each}}
+					{{#unless noArrow}}
+						<li class="nextPage">
+							<a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					{{/unless}}
 				</ul>
 			</nav>
+			{{/pagination}}
 		</div>
 	</div>
 </div>
@@ -270,6 +238,88 @@
 				location.reload();
 			});
 
+			$('#requestAllButton').click(function(e){
+				$('.my-order-list-buttons button').removeClass('active');
+				$(e.target).addClass('active');
+				currentPage = 1;
+				requestType = 'all';
+				pageContentRefresh(currentPage);
+				
+				$('li.pageNumber a').show();
+			});
+
+			$('#requestReceiveButton').click(function(e){
+				$('.my-order-list-buttons button').removeClass('active');
+				$(e.target).addClass('active');
+				currentPage = 1;
+				requestType = 'receive';
+				pageContentRefresh(currentPage);
+
+				$('li.pageNumber a').show();
+				var howManyCard = $('.my-order-list-card.receive-card').length;
+				var paginationNum = Math.ceil(howManyCard/5);
+				$('li.pageNumber a').slice(paginationNum).hide();
+			});
+
+			$('#requestSendButton').click(function(e){
+				$('.my-order-list-buttons button').removeClass('active');
+				$(e.target).addClass('active');
+				currentPage = 1;
+				requestType = 'send';
+				pageContentRefresh(currentPage);
+
+				$('li.pageNumber a').show();
+				var howManyCard = $('.my-order-list-card.send-card').length;
+				var paginationNum = Math.ceil(howManyCard/5);
+				$('li.pageNumber a').slice(paginationNum).hide();
+			});
+
+			//pagination controll
+			var currentPage = 1;
+			var requestType = 'all';
+			var lastPage = $('li.pageNumber a').last().attr('id').substr(3);
+			function pageContentRefresh(currentPage){
+				$('.pagination li.previousPage').show();
+				$('.pagination li.nextPage').show();
+				if(currentPage == 1){
+					$('.pagination li.previousPage').hide();
+				}
+				if(currentPage == lastPage){
+					$('.pagination li.nextPage').hide();
+				}
+				var currentCardHeader =  (currentPage === 1 ) ? currentPage-1 : (currentPage-1)*5;
+
+				if(requestType ==='all'){
+					$('.my-order-list-card').hide();
+					$('.my-order-list-card').slice(currentCardHeader, currentCardHeader+5).show();
+				} else if( requestType === 'receive'){
+					$('.my-order-list-card').hide();
+					$('.my-order-list-card.receive-card').slice(currentCardHeader, currentCardHeader+5).show();	
+				} else if (requestType === 'send'){
+					$('.my-order-list-card').hide();
+					$('.my-order-list-card.send-card').slice(currentCardHeader, currentCardHeader+5).show();	
+				}
+				$('li.pageNumber').removeClass('active');
+				$('li.pageNumber:eq('+(currentPage-1)+')').addClass('active');
+			}
+			pageContentRefresh(currentPage);
+
+			$('li.pageNumber a').click(function(e){
+				currentPage = e.target.id.substr(3);
+				pageContentRefresh(currentPage);
+			});
+		
+			$('.pagination li.previousPage').click(function(){
+				var pageCal = Math.ceil(currentPage/5 -1);
+				currentPage = pageCal === 0 ? 1 : (pageCal-1)*5+1;
+				pageContentRefresh(currentPage);
+			});
+
+			$('.pagination li.nextPage').click(function(){
+				var pageCal = Math.ceil(currentPage/5 -1);
+				currentPage = pageCal === lastPage ? lastPage : (pageCal+1)*5+1;
+				pageContentRefresh(currentPage);
+			});
 		});
 	})();
 </script>

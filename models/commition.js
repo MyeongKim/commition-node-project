@@ -23,7 +23,8 @@ var commitionSchema = mongoose.Schema({
 		ref: 'User'
 	}],
 	title : {
-		type: String
+		type: String,
+		default : "내 커미션"
 	},
 	email : {
 		type: String

@@ -22,81 +22,97 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/mypage/:nickname', function(req,res,next){
-    var isFollow, isMine;
-    // var requestSendArray = [] , requestReceiveArray = [];
-    async.waterfall([
-        function(callback) {
-            User.findOne({nickname : req.params.nickname}).exec(function(err, user){
-                if (err) throw err;
-                user = user;
-                isFollow = (req.user && user.follower.indexOf(req.user._id) > -1);
-                isMine = (req.user && req.user._id == user._id);
-                callback(null, user);
-            });
-        },
-        function(user, callback) {
-            var requestSendArray = [];
-            if(user.requestSend.length !== 0){
-                async.each(user.requestSend, function(requestId, callback){
-                    Request.findById(requestId)
-                        .populate('from to ref_commition')
-                        .exec(function(err, requestSend){
-                            if(err) throw err;
-                            requestSendArray.push(requestSend);
-                            callback();
-                        });
-                }, function(err){
-                    if (err) throw err;
-                    callback(null, user, requestSendArray);
-                });
-            }else {
-                callback(null, user, requestSendArray);
-            }
-        },
-        function(user, requestSendArray, callback) {
-            var requestReceiveArray = [];
-            if(user.requestReceive.length !== 0){
-                async.each(user.requestReceive, function(requestId, callback){
-                    Request.findById(requestId)
-                        .populate('from to ref_commition')
-                        .exec(function(err, requestReceive){
-                            if(err) throw err;
-                            requestReceiveArray.push(requestReceive);
-                            callback();
-                        });
-                }, function(err){
-                    if (err) throw err;
-                    callback(null, user, requestSendArray, requestReceiveArray);
-                });
-            }else {
-                callback(null, user, requestSendArray, requestReceiveArray);
-            }
-        }
-    ], function (err, user, requestSendArray, requestReceiveArray) {
-        if (err) throw err;
+	var isFollow, isMine;
+	// var requestSendArray = [] , requestReceiveArray = [];
+	async.waterfall([
+		function(callback) {
+			User.findOne({nickname : req.params.nickname}).exec(function(err, user){
+				if (err) throw err;
+				user = user;
+				isFollow = (req.user && user.follower.indexOf(req.user._id) > -1);
+				isMine = (req.user && req.user._id == user._id);
+				callback(null, user);
+			});
+		},
+		function(user, callback) {
+			var requestSendArray = [];
+			if(user.requestSend.length !== 0){
+				async.each(user.requestSend, function(requestId, callback){
+					Request.findById(requestId)
+						.populate('from to ref_commition')
+						.exec(function(err, requestSend){
+							if(err) throw err;
+							requestSend.mySendRequest = true;
+							requestSendArray.push(requestSend);
+							callback();
+						});
+				}, function(err){
+					if (err) throw err;
+					callback(null, user, requestSendArray);
+				});
+			}else {
+				callback(null, user, requestSendArray);
+			}
+		},
+		function(user, requestSendArray, callback) {
+			var requestReceiveArray = [];
+			if(user.requestReceive.length !== 0){
+				async.each(user.requestReceive, function(requestId, callback){
+					Request.findById(requestId)
+						.populate('from to ref_commition')
+						.exec(function(err, requestReceive){
+							if(err) throw err;
+							requestReceiveArray.push(requestReceive);
+							callback();
+						});
+				}, function(err){
+					if (err) throw err;
+					callback(null, user, requestSendArray, requestReceiveArray);
+				});
+			}else {
+				callback(null, user, requestSendArray, requestReceiveArray);
+			}
+		}
+	], function (err, user, requestSendArray, requestReceiveArray) {
+		if (err) throw err;
 
-        var requestAllArray = requestReceiveArray.concat(requestSendArray);
-        var options = {
-            loginUser : req.user,
-            isFollow : isFollow,
-            isMine : isMine,
-            data : user,
-            requestSendArray : requestSendArray.sort(function(a,b){return b.time - a.time }),
-            requestReceiveArray : requestReceiveArray.sort(function(a,b){return b.time - a.time}),
-            requestAllArray : requestAllArray.sort(function(a,b){return b.time - a.time}),
-            helpers : {
-                truncate : function (text){
-                    return text.substring(0, 10);
-                },
-                moment : function(time){
-                    moment.locale('ko');
-                    return moment(time).utcOffset(540).fromNow();
+		var requestAllArray = requestReceiveArray.concat(requestSendArray);
+		var options = {
+			loginUser : req.user,
+			isFollow : isFollow,
+			isMine : isMine,
+			data : user,
+			requestSendArray : requestSendArray.sort(function(a,b){return b.time - a.time }),
+			requestReceiveArray : requestReceiveArray.sort(function(a,b){return b.time - a.time}),
+			requestAllArray : requestAllArray.sort(function(a,b){return b.time - a.time}),
+			helpers : {
+				truncate : function (text){
+					return text.substring(0, 30)+'...';
+				},
+				moment : function(time){
+					moment.locale('ko');
+					return moment(time).utcOffset(540).fromNow();
 
-                }
-            }
-        };
-        res.render('mypage', options);
-    });
+				},
+				pagination : function(length, options){
+					var totalPage = Math.ceil(length / 5);
+					  context = {
+						pages: [],
+					  };
+					  for (var i = 1; i <= totalPage; i++) {
+						context.pages.push({
+						  page: i
+						});
+					  }
+					  if(totalPage <= 5){
+					  	context.noArrow = true;
+					  }
+					  return options.fn(context);
+				}
+			}
+		};
+		res.render('mypage', options);
+	});
 });
 
 router.get('/register', function(req, res, next) {
@@ -223,36 +239,36 @@ passport.use(new TwitterStrategy({
 
 passport.use(new RememberMeStrategy(
   function(token, done) {
-    Token.consume(token, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      return done(null, user);
-    });
+	Token.consume(token, function (err, user) {
+	  if (err) { return done(err); }
+	  if (!user) { return done(null, false); }
+	  return done(null, user);
+	});
   },
   function(user, done) {
-    var token = utils.generateToken(64);
-    Token.save(token, { userId: user.id }, function(err) {
-      if (err) { return done(err); }
-      return done(null, token);
-    });
+	var token = utils.generateToken(64);
+	Token.save(token, { userId: user.id }, function(err) {
+	  if (err) { return done(err); }
+	  return done(null, token);
+	});
   }
 ));
 
 router.post('/login', passport.authenticate('local',{failureRedirect:'/user/login', failureFlash:'Invalid nickname or password'}),function(req, res, next) {
-    // issue a remember me cookie if the option was checked
-    if (!req.body.remember_me) { return next(); }
+	// issue a remember me cookie if the option was checked
+	if (!req.body.remember_me) { return next(); }
 
-    var token = utils.generateToken(64);
-    Token.save(token, { userId: req.user.id }, function(err) {
-      if (err) { return done(err); }
-      res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
-      return next();
-    });
+	var token = utils.generateToken(64);
+	Token.save(token, { userId: req.user.id }, function(err) {
+	  if (err) { return done(err); }
+	  res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 }); // 7 days
+	  return next();
+	});
 
-    },function(req, res){
-        console.log('Authentication Successful');
-    	req.flash('success', 'You are logged in');
-    	res.redirect('/');
+	},function(req, res){
+		console.log('Authentication Successful');
+		req.flash('success', 'You are logged in');
+		res.redirect('/');
 });
 
 router.get('/auth/twitter',
@@ -266,117 +282,117 @@ router.get('/auth/twitter/callback',
 	});
 
 router.post('/forgot', function(req, res, next) {
-    async.waterfall([
-        function(done) {
-            crypto.randomBytes(20, function(err, buf) {
-                var token = buf.toString('hex');
-                done(err, token);
-            });
-        },
-        function(token, done) {
-            User.findOne({ email: req.body.email }, function(err, user) {
-                if (!user) {
-                    req.flash('error', '이메일 주소가 올바르지 않습니다.');
-                    return res.redirect('/user/forgot');
-                }
+	async.waterfall([
+		function(done) {
+			crypto.randomBytes(20, function(err, buf) {
+				var token = buf.toString('hex');
+				done(err, token);
+			});
+		},
+		function(token, done) {
+			User.findOne({ email: req.body.email }, function(err, user) {
+				if (!user) {
+					req.flash('error', '이메일 주소가 올바르지 않습니다.');
+					return res.redirect('/user/forgot');
+				}
 
-                user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+				user.resetPasswordToken = token;
+				user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-                user.save(function(err) {
-                    done(err, token, user);
-                });
-            });
-        },
-        function(token, user, done) {
-            var smtpTransport = nodemailer.createTransport({
-                service: 'Gmail',
-                auth: {
-                    user: 'ming3772@gmail.com',
-                    pass: "I'llgotoyou"
-                }
-            });
-            var mailOptions = {
-                to: user.email,
-                from: 'passwordreset@demo.com',
-                subject: 'Node.js Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-            };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-                done(err, 'done');
-            });
-        }
-    ], function(err) {
-        if (err) return next(err);
-        res.redirect('/user/forgot');
-    });
+				user.save(function(err) {
+					done(err, token, user);
+				});
+			});
+		},
+		function(token, user, done) {
+			var smtpTransport = nodemailer.createTransport({
+				service: 'Gmail',
+				auth: {
+					user: 'ming3772@gmail.com',
+					pass: "I'llgotoyou"
+				}
+			});
+			var mailOptions = {
+				to: user.email,
+				from: 'passwordreset@demo.com',
+				subject: 'Node.js Password Reset',
+				text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+				'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+				'http://' + req.headers.host + '/user/reset/' + token + '\n\n' +
+				'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+				done(err, 'done');
+			});
+		}
+	], function(err) {
+		if (err) return next(err);
+		res.redirect('/user/forgot');
+	});
 });
 
 router.get('/reset/:token', function(req, res) {
-    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        if (!user) {
-            req.flash('error', 'Password reset token is invalid or has expired.');
-            return res.redirect('/user/forgot');
-        }
-        res.render('reset', {
-            user: req.user
-        });
-    });
+	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+		if (!user) {
+			req.flash('error', 'Password reset token is invalid or has expired.');
+			return res.redirect('/user/forgot');
+		}
+		res.render('reset', {
+			user: req.user
+		});
+	});
 });
 
 router.post('/reset/:token', function(req, res) {
-    async.waterfall([
-        function(done) {
-            User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-                if (!user) {
-                    req.flash('error', 'Password reset token is invalid or has expired.');
-                    return res.redirect('back');
-                }
+	async.waterfall([
+		function(done) {
+			User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+				if (!user) {
+					req.flash('error', 'Password reset token is invalid or has expired.');
+					return res.redirect('back');
+				}
 
-                user.password = req.body.password;
-                user.resetPasswordToken = undefined;
-                user.resetPasswordExpires = undefined;
+				user.password = req.body.password;
+				user.resetPasswordToken = undefined;
+				user.resetPasswordExpires = undefined;
 
 				bcrypt.hash(user.password, 10, function(err, hash){
 					if(err) throw err;
 					// Set hashed pw
 					user.password = hash;
 					// Create User
-	                user.save(function(err) {
-                    	req.logIn(user, function(err) {
-                        done(err, user);
-                    	});
-                	});
+					user.save(function(err) {
+						req.logIn(user, function(err) {
+						done(err, user);
+						});
+					});
 				});
-            });
-        },
-        function(user, done) {
-            var smtpTransport = nodemailer.createTransport({
-                service: 'Gmail',
-                auth: {
-                    user: 'ming3772@gmail.com',
-                    pass: "I'llgotoyou"
-                }
-            });
-            var mailOptions = {
-                to: user.email,
-                from: 'passwordreset@demo.com',
-                subject: 'Your password has been changed',
-                text: 'Hello,\n\n' +
-                'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-            };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                req.flash('success', '비밀번호를 안전하게 변경하였습니다!');
-                done(err);
-            });
-        }
-    ], function(err) {
-        res.redirect('/');
-    });
+			});
+		},
+		function(user, done) {
+			var smtpTransport = nodemailer.createTransport({
+				service: 'Gmail',
+				auth: {
+					user: 'ming3772@gmail.com',
+					pass: "I'llgotoyou"
+				}
+			});
+			var mailOptions = {
+				to: user.email,
+				from: 'passwordreset@demo.com',
+				subject: 'Your password has been changed',
+				text: 'Hello,\n\n' +
+				'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				req.flash('success', '비밀번호를 안전하게 변경하였습니다!');
+				done(err);
+			});
+		}
+	], function(err) {
+		res.redirect('/');
+	});
 });
 
 // Log User Out

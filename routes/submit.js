@@ -65,6 +65,7 @@ router.post('/', cpUpload, function(req, res, next) {
 	var time 					= req.body.time;
 	var password    			= req.body.password;
 	var password2				= req.body.password2;
+	var title 					= req.body.title;
 	var time_spent     			= req.body.time_spent;
 	var process    				= req.body.process;
 	var warning 				= req.body.warning;
@@ -113,6 +114,7 @@ router.post('/', cpUpload, function(req, res, next) {
 			errors: errors,
 			password: password,
 			password2: password2,
+			title : title,
 			time_spent: time_spent,
 			process: process,
 			warning: warning,
@@ -190,6 +192,7 @@ router.post('/', cpUpload, function(req, res, next) {
 				time : time,
 				user : req.user._id,
 				password: password,
+				title : title,
 				time_spent: time_spent,
 				process: process,
 				warning: warning,
