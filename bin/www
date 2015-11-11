@@ -47,6 +47,12 @@ io.on('connection', function (socket) {
     socket.on('cancelHeartPlus', function(data) {
         socketFunction.cancelHeartPlus(data.csId, data.userId);
     });
+    socket.on('getRequestData', function(data) {
+      socketFunction.getRequestData(data.nickname, data.type, data.pageNum, function(requestArray){
+        // console.log(requestArray);
+        socket.emit('getRequestData', {requestArray : requestArray});
+      });
+    });
   });
 
 /**

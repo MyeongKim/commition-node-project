@@ -320,6 +320,17 @@
 				currentPage = pageCal === lastPage ? lastPage : (pageCal+1)*5+1;
 				pageContentRefresh(currentPage);
 			});
+
+			$('li.pageNumber a').click(function(e){
+				var requestAlign = $('.my-order-list-buttons button.active').attr('id');
+				var pageNum = $(e.target).text();
+				socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : requestAlign , pageNum : pageNum});
+			});
+
+			socket.on('getRequestData', function (data) {
+				console.log(data);
+			});
+
 		});
 	})();
 </script>

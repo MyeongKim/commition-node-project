@@ -2,9 +2,12 @@
  * Created by nuko on 2015. 7. 14..
  */
 var mongoose = require('mongoose');
+var async = require('async');
 
 var User = require('./models/user');
 var Commition = require('./models/commition');
+var Request = require('./models/request');
+
 
 // var CommitModel = require('./models/model.js').CommitModel;
 // var UserModel = require('./models/model.js').UserModel;
@@ -76,4 +79,102 @@ module.exports = {
     //         console.log(data);
     //     });
     // }
+    getRequestData : function(nickname, type, pageNum, mycallback){
+        if( type === "requestSendButton"){
+            var requestSendArray = [];
+            User.findOne({nickname : nickname}).exec(function(err, user){
+                if (err) throw err;
+                user = user;
+                if(user.requestSend.length !== 0){
+                    Request.find({ '_id' : { $in : user.requestSend}})
+                            .populate('from to ref_commition')
+                            .sort('-time')
+                            .skip((pageNum-1)*5)
+                            .limit(5)
+                            .exec(function(err, requestSend){
+                                if(err) throw err;
+                                requestSendArray = requestSend;
+                                mycallback(requestSendArray);
+                            });
+                }else {
+                    return;
+                }
+            });
+        }else if( type === "requestReceiveButton"){
+            var requestReceiveArray = [];
+            User.findOne({nickname : nickname}).exec(function(err, user){
+                if (err) throw err;
+                user = user;
+                if(user.requestReceive.length !== 0){
+                    Request.find({ '_id' : { $in : user.requestReceive}})
+                            .populate('from to ref_commition')
+                            .sort('-time')
+                            .skip((pageNum-1)*5)
+                            .limit(5)
+                            .exec(function(err, requestReceive){
+                                if(err) throw err;
+                                requestReceiveArray = requestReceive;
+                                mycallback(requestSendArray);
+                            });
+                }else {
+                    return;
+                }
+            });
+        }else {
+            async.waterfall([
+                function(callback) {
+                    User.findOne({nickname : nickname}).exec(function(err, user){
+                        if (err) throw err;
+                        callback(null, user);
+                    });
+                },
+                function(user, callback) {
+                    var requestSendArray = [];
+                    if(user.requestSend.length !== 0){
+                        Request.find({ '_id' : { $in : user.requestSend}})
+                            .populate('from to ref_commition')
+                                .sort('-time')
+                                .skip((pageNum-1)*5)
+                                .limit(5)
+                                .exec(function(err, requestSend){
+                                    if(err) throw err;
+                                    // console.log(requestSend);
+                                    requestSendArray = requestSend;
+                                    callback(null, user, requestSendArray);
+                                });
+                    } else {
+                        callback(null, user, requestSendArray);
+                    }
+                },
+                function(user, requestSendArray, callback) {
+                    var requestReceiveArray = [];
+
+                    if(user.requestReceive.length !== 0){
+                        Request.find({ '_id' : { $in : user.requestReceive}})
+                            .populate('from to ref_commition')
+                            .sort('-time')
+                            .skip((pageNum-1)*5)
+                            .limit(5)
+                            .exec(function(err, requestReceive){
+                                if(err) throw err;
+                                // console.log(requestReceive);
+                                requestReceiveArray = requestReceive;
+                                callback(null, user, requestSendArray, requestReceiveArray);
+                            });
+                    }else {
+                        callback(null, user, requestSendArray, requestReceiveArray);
+                    }
+                },
+                function(user, requestSendArray, requestReceiveArray, callback){
+                    var requestAllArray = requestReceiveArray.concat(requestSendArray);
+                    requestAllArray.sort(function(a,b){return b.time - a.time}).splice(5);
+                    mycallback(requestAllArray);
+                    callback(null);
+                }
+            ], function (err) {
+                if (err) throw err;
+                }
+            )
+        }
+    }
 };

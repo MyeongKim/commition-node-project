@@ -432,12 +432,11 @@ ul.success li{
 }
 
 .my-commition-list{
-	border: solid 1px blue;
 	margin-top: 100px;
 }
 
 .my-commition-list .my-commition-list-header{
-	border: solid 3px black;
+	border: solid 4px #e7e7e7;
 	width: 50%;
 	margin-left: 25%;
 	font-size: 1.3em;
@@ -445,7 +444,7 @@ ul.success li{
 }
 
 .my-commition-list .my-commition-list-body{
-	border: solid 3px black;
+	border: solid 4px #e7e7e7;
 	margin-top: 30px;
 	width: 80%;
 	margin-left: 10%;

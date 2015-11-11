@@ -23,7 +23,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/mypage/:nickname', function(req,res,next){
 	var isFollow, isMine;
-	// var requestSendArray = [] , requestReceiveArray = [];
 	async.waterfall([
 		function(callback) {
 			User.findOne({nickname : req.params.nickname}).exec(function(err, user){
@@ -87,7 +86,10 @@ router.get('/mypage/:nickname', function(req,res,next){
 			requestAllArray : requestAllArray.sort(function(a,b){return b.time - a.time}),
 			helpers : {
 				truncate : function (text){
-					return text.substring(0, 30)+'...';
+					if(text.length > 30){
+						return text.substring(0, 30)+'...';
+					}
+					return text;
 				},
 				moment : function(time){
 					moment.locale('ko');
