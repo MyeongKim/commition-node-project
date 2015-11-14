@@ -43,6 +43,7 @@
 			</div>
 		</div>
 		<div class="my-order-list-card-wrapper">
+			<div id="request-data-container"></div>
 			{{#each requestAllArray}}
 				{{#if this.mySendRequest}}
 					<div class="my-order-list-card send-card card-num{{@index}}">
@@ -329,8 +330,25 @@
 
 			socket.on('getRequestData', function (data) {
 				console.log(data);
+				var myString = "";
+				data.requestArray.forEach(function(element, index){
+					myString += '<div class="my-order-list-card send-card card-num'+index+'">\
+							<div class="my-order-list-title">\
+								<a href="#"><h3>'+element.ref_commition.title+'</h3></a>\
+								<span>'+element.time+'</span>\
+								<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>\
+							</div>\
+							<div class="my-order-list-nickname">\
+								<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">\
+								<a href="/user/mypage/'+element.to.nickname+'">'+element.to.nickname+'</a>\
+								<div>'+element.request_desc+'</div>\
+							</div>\
+							<p><span class="order-desc-more"><a href="#">more</a></span></p>\
+						</div>'
+				});
+				console.log(myString);
+				$( "#request-data-container" ).html(myString);
 			});
-
 		});
 	})();
 </script>

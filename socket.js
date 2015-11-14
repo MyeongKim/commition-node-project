@@ -3,10 +3,17 @@
  */
 var mongoose = require('mongoose');
 var async = require('async');
+var moment = require('moment');
 
 var User = require('./models/user');
 var Commition = require('./models/commition');
 var Request = require('./models/request');
+
+
+moment.locale('ko');
+function timeFromNow(time){
+    return moment(time).utcOffset(540).fromNow();
+}
 
 
 // var CommitModel = require('./models/model.js').CommitModel;
@@ -94,7 +101,15 @@ module.exports = {
                             .exec(function(err, requestSend){
                                 if(err) throw err;
                                 requestSendArray = requestSend;
-                                mycallback(requestSendArray);
+                                async.forEachOfSeries(requestSendArray, function(value,key, callback){
+                                    requestSendArray[key]['transformedTime'] = moment(requestSendArray[key]['time']).utcOffset(540).fromNow();
+                                    console.log(requestSendArray[key]['transformedTime']);
+                                    callback();
+                                }, function(err){
+                                    if(err) throw err;
+                                    // console.log(requestSendArray);
+                                    mycallback(requestSendArray);
+                                });
                             });
                 }else {
                     return;
@@ -114,7 +129,10 @@ module.exports = {
                             .exec(function(err, requestReceive){
                                 if(err) throw err;
                                 requestReceiveArray = requestReceive;
-                                mycallback(requestSendArray);
+                                requestReceiveArray.forEach(function(e){
+                                    e.time = moment(e.time).utcOffset(540).fromNow();
+                                });
+                                mycallback(requestReceiveArray);
                             });
                 }else {
                     return;
@@ -134,8 +152,7 @@ module.exports = {
                         Request.find({ '_id' : { $in : user.requestSend}})
                             .populate('from to ref_commition')
                                 .sort('-time')
-                                .skip((pageNum-1)*5)
-                                .limit(5)
+                                .limit(pageNum * 5)
                                 .exec(function(err, requestSend){
                                     if(err) throw err;
                                     // console.log(requestSend);
@@ -153,8 +170,7 @@ module.exports = {
                         Request.find({ '_id' : { $in : user.requestReceive}})
                             .populate('from to ref_commition')
                             .sort('-time')
-                            .skip((pageNum-1)*5)
-                            .limit(5)
+                            .limit(pageNum * 5)
                             .exec(function(err, requestReceive){
                                 if(err) throw err;
                                 // console.log(requestReceive);
@@ -167,7 +183,10 @@ module.exports = {
                 },
                 function(user, requestSendArray, requestReceiveArray, callback){
                     var requestAllArray = requestReceiveArray.concat(requestSendArray);
-                    requestAllArray.sort(function(a,b){return b.time - a.time}).splice(5);
+                    requestAllArray = requestAllArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
+                    requestAllArray.forEach(function(e){
+                        e.time = moment(e.time).utcOffset(540).fromNow();
+                    });
                     mycallback(requestAllArray);
                     callback(null);
                 }
