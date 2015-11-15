@@ -331,11 +331,13 @@
 			socket.on('getRequestData', function (data) {
 				console.log(data);
 				var myString = "";
-				data.requestArray.forEach(function(element, index){
-					myString += '<div class="my-order-list-card send-card card-num'+index+'">\
+				var dataLength = data.requestArray.length-1;
+				for(var i = 0 ; i < dataLength ; i++){
+					var element = data.requestArray[i];
+					myString += '<div class="my-order-list-card send-card card-num'+i+'">\
 							<div class="my-order-list-title">\
 								<a href="#"><h3>'+element.ref_commition.title+'</h3></a>\
-								<span>'+element.time+'</span>\
+								<span>'+data.requestArray[dataLength][i]+'</span>\
 								<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>\
 							</div>\
 							<div class="my-order-list-nickname">\
@@ -345,8 +347,7 @@
 							</div>\
 							<p><span class="order-desc-more"><a href="#">more</a></span></p>\
 						</div>'
-				});
-				console.log(myString);
+				}
 				$( "#request-data-container" ).html(myString);
 			});
 		});

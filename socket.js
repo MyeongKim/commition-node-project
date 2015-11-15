@@ -101,15 +101,12 @@ module.exports = {
                             .exec(function(err, requestSend){
                                 if(err) throw err;
                                 requestSendArray = requestSend;
-                                async.forEachOfSeries(requestSendArray, function(value,key, callback){
-                                    requestSendArray[key]['transformedTime'] = moment(requestSendArray[key]['time']).utcOffset(540).fromNow();
-                                    console.log(requestSendArray[key]['transformedTime']);
-                                    callback();
-                                }, function(err){
-                                    if(err) throw err;
-                                    // console.log(requestSendArray);
-                                    mycallback(requestSendArray);
-                                });
+                                requestSendArray.push([]);
+                                var dataLength = requestSendArray.length-1
+                                for(var i = 0 ; i < dataLength ; i++){
+                                    requestSendArray[dataLength][i] = (moment(requestSendArray[i].time).utcOffset(540).fromNow());
+                                }
+                                mycallback(requestSendArray);
                             });
                 }else {
                     return;
@@ -129,9 +126,11 @@ module.exports = {
                             .exec(function(err, requestReceive){
                                 if(err) throw err;
                                 requestReceiveArray = requestReceive;
-                                requestReceiveArray.forEach(function(e){
-                                    e.time = moment(e.time).utcOffset(540).fromNow();
-                                });
+                                requestReceiveArray.push([]);
+                                var dataLength = requestReceiveArray.length-1
+                                for(var i = 0 ; i < dataLength ; i++){
+                                    requestReceiveArray[dataLength][i] = (moment(requestReceiveArray[i].time).utcOffset(540).fromNow());
+                                }
                                 mycallback(requestReceiveArray);
                             });
                 }else {
@@ -173,7 +172,6 @@ module.exports = {
                             .limit(pageNum * 5)
                             .exec(function(err, requestReceive){
                                 if(err) throw err;
-                                // console.log(requestReceive);
                                 requestReceiveArray = requestReceive;
                                 callback(null, user, requestSendArray, requestReceiveArray);
                             });
@@ -184,9 +182,11 @@ module.exports = {
                 function(user, requestSendArray, requestReceiveArray, callback){
                     var requestAllArray = requestReceiveArray.concat(requestSendArray);
                     requestAllArray = requestAllArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
-                    requestAllArray.forEach(function(e){
-                        e.time = moment(e.time).utcOffset(540).fromNow();
-                    });
+                    requestAllArray.push([]);
+                    var dataLength = requestAllArray.length-1
+                    for(var i = 0 ; i < dataLength ; i++){
+                        requestAllArray[dataLength][i] = (moment(requestAllArray[i].time).utcOffset(540).fromNow());
+                    }
                     mycallback(requestAllArray);
                     callback(null);
                 }
