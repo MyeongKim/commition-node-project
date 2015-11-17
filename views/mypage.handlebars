@@ -44,58 +44,31 @@
 		</div>
 		<div class="my-order-list-card-wrapper">
 			<div id="request-data-container"></div>
-			{{#each requestAllArray}}
-				{{#if this.mySendRequest}}
-					<div class="my-order-list-card send-card card-num{{@index}}">
-						<div class="my-order-list-title">
-							<a href="#"><h3>{{this.ref_commition.title}}</h3></a>
-							<span>{{moment this.time}}</span>
-							<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>			
-						</div>
-						<div class="my-order-list-nickname">
-							<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-							<a href="/user/mypage/{{this.to.nickname}}">{{this.to.nickname}}</a>
-						</div>
-						<p>{{truncate this.request_desc}}<span class="order-desc-more"><a href="#">more</a></span> </p>
-					</div>
-				{{else}}
-					<div class="my-order-list-card receive-card card-num{{@index}}">
-						<div class="my-order-list-title">
-							<a href="#"><h3>{{this.ref_commition.title}}</h3></a>
-							<span>{{moment this.time}}</span>
-							<span class="glyphicon glyphicon-arrow-left send-arrow" aria-hidden="true"></span>			
-						</div>
-						<div class="my-order-list-nickname">
-							<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-							<a href="/user/mypage/{{this.from.nickname}}">{{this.from.nickname}}</a>
-						</div>
-						<p>{{truncate this.request_desc}}<span class="order-desc-more"><a href="#">more</a></span> </p>
-					</div>
-				{{/if}}
-			{{/each}}
-			{{#pagination requestAllArray.length}}
-			<nav>
-				<ul class="pagination">
-					{{#unless noArrow}}
-						<li class="previousPage">
-							<a href="#" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-							</a>
-						</li>
-					{{/unless}}
-					{{#each pages}}
-						<li class="pageNumber"><a id="num{{page}}">{{page}}</a></li>
-					{{/each}}
-					{{#unless noArrow}}
-						<li class="nextPage">
-							<a href="#" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-							</a>
-						</li>
-					{{/unless}}
-				</ul>
-			</nav>
-			{{/pagination}}
+			<div id="pagination-container">
+				{{!-- {{#pagination requestAllArrayLength}}
+				<nav>
+					<ul class="pagination">
+						{{#unless noArrow}}
+							<li class="previousPage">
+								<a href="#" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+						{{/unless}}
+						{{#each pages}}
+							<li class="pageNumber"><a id="num{{page}}">{{page}}</a></li>
+						{{/each}}
+						{{#unless noArrow}}
+							<li class="nextPage">
+								<a href="#" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						{{/unless}}
+					</ul>
+				</nav>
+				{{/pagination}} --}}
+			</div>
 		</div>
 	</div>
 </div>
@@ -221,135 +194,154 @@
 	</div>
 </div>
 <script type="text/javascript">
-	(function(){
+	$(document).ready(function(){
 		var socket = io.connect('http://127.0.0.1:8080');
-		$(function(){
 
-			$('#mypage_profile_button').click(function(){
-				alert("프로필 수정");
-			});
+		$('#mypage_profile_button').click(function(){
+			alert("프로필 수정");
+		});
 
-			$('#followButton').click(function(){
-				socket.emit('followPlus', { creatorId: "{{data._id}}", userId : "{{loginUser._id}}"});
-				location.reload();
-			});
+		$('#followButton').click(function(){
+			socket.emit('followPlus', { creatorId: "{{data._id}}", userId : "{{loginUser._id}}"});
+			location.reload();
+		});
 
-			$('#unfollowButton').click(function(){
-				socket.emit('followMinus', { creatorId: "{{data._id}}", userId : "{{loginUser._id}}"});
-				location.reload();
-			});
+		$('#unfollowButton').click(function(){
+			socket.emit('followMinus', { creatorId: "{{data._id}}", userId : "{{loginUser._id}}"});
+			location.reload();
+		});
 
-			$('#requestAllButton').click(function(e){
-				$('.my-order-list-buttons button').removeClass('active');
-				$(e.target).addClass('active');
-				currentPage = 1;
-				requestType = 'all';
-				pageContentRefresh(currentPage);
-				
-				$('li.pageNumber a').show();
-			});
+		//get request
 
-			$('#requestReceiveButton').click(function(e){
-				$('.my-order-list-buttons button').removeClass('active');
-				$(e.target).addClass('active');
-				currentPage = 1;
-				requestType = 'receive';
-				pageContentRefresh(currentPage);
+		$('#requestAllButton').click(function(e){
+			$('.my-order-list-buttons button').removeClass('active');
+			$(e.target).addClass('active');
 
-				$('li.pageNumber a').show();
-				var howManyCard = $('.my-order-list-card.receive-card').length;
-				var paginationNum = Math.ceil(howManyCard/5);
-				$('li.pageNumber a').slice(paginationNum).hide();
-			});
+			currentPage = 1;
+			requestType = 'all';
 
-			$('#requestSendButton').click(function(e){
-				$('.my-order-list-buttons button').removeClass('active');
-				$(e.target).addClass('active');
-				currentPage = 1;
-				requestType = 'send';
-				pageContentRefresh(currentPage);
+			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : "requestAllButton" , pageNum : 1});
 
-				$('li.pageNumber a').show();
-				var howManyCard = $('.my-order-list-card.send-card').length;
-				var paginationNum = Math.ceil(howManyCard/5);
-				$('li.pageNumber a').slice(paginationNum).hide();
-			});
+			paginationContext({{requestAllArrayLength}});
+		});
 
-			//pagination controll
-			var currentPage = 1;
-			var requestType = 'all';
-			var lastPage = $('li.pageNumber a').last().attr('id').substr(3);
-			function pageContentRefresh(currentPage){
+		$('#requestReceiveButton').click(function(e){
+			$('.my-order-list-buttons button').removeClass('active');
+			$(e.target).addClass('active');
+
+			currentPage = 1;
+			requestType = 'receive';
+
+			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : "requestReceiveButton" , pageNum : 1});
+
+			paginationContext({{requestReceiveArrayLength}});
+
+		});
+
+		$('#requestSendButton').click(function(e){
+			$('.my-order-list-buttons button').removeClass('active');
+			$(e.target).addClass('active');
+
+			currentPage = 1;
+			requestType = 'send';
+
+			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : "requestSendButton" , pageNum : 1});
+
+			paginationContext({{requestSendArrayLength}});
+
+		});
+	
+		$(document).on('click', '.pagination li.previousPage', function(e){
+			var pageCal = Math.ceil(currentPage/5 -1);
+			currentPage = pageCal === lastPage ? lastPage : (pageCal+1)*5+1;
+		});
+
+		$(document).on('click', '.pagination li.nextPage', function(e){
+			var pageCal = Math.ceil(currentPage/5 -1);
+			currentPage = pageCal === lastPage ? lastPage : (pageCal+1)*5+1;
+		});
+
+		function pageContentRefresh(currentPage){
 				$('.pagination li.previousPage').show();
 				$('.pagination li.nextPage').show();
+
 				if(currentPage == 1){
 					$('.pagination li.previousPage').hide();
 				}
+
 				if(currentPage == lastPage){
 					$('.pagination li.nextPage').hide();
 				}
-				var currentCardHeader =  (currentPage === 1 ) ? currentPage-1 : (currentPage-1)*5;
+		};
 
-				if(requestType ==='all'){
-					$('.my-order-list-card').hide();
-					$('.my-order-list-card').slice(currentCardHeader, currentCardHeader+5).show();
-				} else if( requestType === 'receive'){
-					$('.my-order-list-card').hide();
-					$('.my-order-list-card.receive-card').slice(currentCardHeader, currentCardHeader+5).show();	
-				} else if (requestType === 'send'){
-					$('.my-order-list-card').hide();
-					$('.my-order-list-card.send-card').slice(currentCardHeader, currentCardHeader+5).show();	
-				}
-				$('li.pageNumber').removeClass('active');
-				$('li.pageNumber:eq('+(currentPage-1)+')').addClass('active');
-			}
-			pageContentRefresh(currentPage);
+		$(document).on('click','li.pageNumber a',function(e){
+			currentPage = e.target.id.substr(3);
+			$('li.pageNumber').removeClass('active');
+			$('li.pageNumber:eq('+(currentPage-1)+')').addClass('active');
 
-			$('li.pageNumber a').click(function(e){
-				currentPage = e.target.id.substr(3);
-				pageContentRefresh(currentPage);
-			});
-		
-			$('.pagination li.previousPage').click(function(){
-				var pageCal = Math.ceil(currentPage/5 -1);
-				currentPage = pageCal === 0 ? 1 : (pageCal-1)*5+1;
-				pageContentRefresh(currentPage);
-			});
-
-			$('.pagination li.nextPage').click(function(){
-				var pageCal = Math.ceil(currentPage/5 -1);
-				currentPage = pageCal === lastPage ? lastPage : (pageCal+1)*5+1;
-				pageContentRefresh(currentPage);
-			});
-
-			$('li.pageNumber a').click(function(e){
-				var requestAlign = $('.my-order-list-buttons button.active').attr('id');
-				var pageNum = $(e.target).text();
-				socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : requestAlign , pageNum : pageNum});
-			});
-
-			socket.on('getRequestData', function (data) {
-				console.log(data);
-				var myString = "";
-				var dataLength = data.requestArray.length-1;
-				for(var i = 0 ; i < dataLength ; i++){
-					var element = data.requestArray[i];
-					myString += '<div class="my-order-list-card send-card card-num'+i+'">\
-							<div class="my-order-list-title">\
-								<a href="#"><h3>'+element.ref_commition.title+'</h3></a>\
-								<span>'+data.requestArray[dataLength][i]+'</span>\
-								<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>\
-							</div>\
-							<div class="my-order-list-nickname">\
-								<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">\
-								<a href="/user/mypage/'+element.to.nickname+'">'+element.to.nickname+'</a>\
-								<div>'+element.request_desc+'</div>\
-							</div>\
-							<p><span class="order-desc-more"><a href="#">more</a></span></p>\
-						</div>'
-				}
-				$( "#request-data-container" ).html(myString);
-			});
+			var requestAlign = $('.my-order-list-buttons button.active').attr('id');
+			var pageNum = $(e.target).text();
+			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : requestAlign , pageNum : pageNum});
 		});
-	})();
+
+		socket.on('getRequestData', function (data) {
+			console.log(data);
+			var myString = "";
+			var dataLength = data.requestArray.length-1;
+			for(var i = 0 ; i < dataLength ; i++){
+				var element = data.requestArray[i];
+				myString += '<div class="my-order-list-card send-card card-num'+i+'">\
+						<div class="my-order-list-title">\
+							<a href="#"><h3>'+element.ref_commition.title+'</h3></a>\
+							<span>'+data.requestArray[dataLength][i]+'</span>\
+							<span class="glyphicon glyphicon-arrow-right send-arrow" aria-hidden="true"></span>\
+						</div>\
+						<div class="my-order-list-nickname">\
+							<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">\
+							<a href="/user/mypage/'+element.to.nickname+'">'+element.to.nickname+'</a>\
+							<div>'+element.request_desc+'</div>\
+						</div>\
+						<p><span class="order-desc-more"><a href="#">more</a></span></p>\
+					</div>'
+			}
+			$( "#request-data-container" ).html(myString);
+		});
+
+		function paginationContext(length){
+			var totalPage = Math.ceil(length / 5);
+			var myString = "";
+			myString += '<nav><ul class="pagination">';
+			if(totalPage > 5){
+				myString += '<li class="previousPage">\
+					<a href="#" aria-label="Previous">\
+					<span aria-hidden="true">&laquo;</span>\
+					</a>\
+					</li>';
+			}
+			myString += '<li class="pageNumber active"><a id="num1">1</a></li>'		
+			for (var i = 2; i <= totalPage; i++){
+				myString += '<li class="pageNumber"><a id="num'+i+'">'+i+'</a></li>'
+			}
+
+			if(totalPage > 5){
+				myString += '<li class="nextPage">\
+					<a href="#" aria-label="Next">\
+					<span aria-hidden="true">&raquo;</span>\
+					</a>\
+				</li>'
+			}
+			myString += '</ul></nav>'
+			$( "#pagination-container" ).html(myString);
+		};
+
+		function init(){
+			var currentPage = 1;
+			var requestType = 'all';
+			paginationContext({{requestAllArrayLength}})
+			var lastPage = $('li.pageNumber a').last().attr('id').substr(3);
+			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : 'requestAllButton' , pageNum : 1});
+		};
+
+		init();
+	});
 </script>

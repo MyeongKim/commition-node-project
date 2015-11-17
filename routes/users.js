@@ -84,6 +84,9 @@ router.get('/mypage/:nickname', function(req,res,next){
 			requestSendArray : requestSendArray.sort(function(a,b){return b.time - a.time }),
 			requestReceiveArray : requestReceiveArray.sort(function(a,b){return b.time - a.time}),
 			requestAllArray : requestAllArray.sort(function(a,b){return b.time - a.time}),
+			requestAllArrayLength : requestAllArray.length,
+			requestReceiveArrayLength : requestReceiveArray.length,
+			requestSendArrayLength : requestSendArray.length,
 			helpers : {
 				truncate : function (text){
 					if(text.length > 30){
