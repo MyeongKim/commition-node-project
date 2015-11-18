@@ -1,77 +1,79 @@
-<div class="intro-header">
-	<div class="intro-div">
-		<h3>커미션을 쉽게 등록하고 검색할 수 있습니다.</h3>
-		<p>
-		현재 커미션이 진행중입니다. 
-		</p>
-		
-	</div>
-	<form role="form" action="/search/keyword" method="post">  
-		<div class="row">
-		  <div class="col-xs-12">
-			<div class="input-group">
-				<input type="text" name="keyword" class="form-control" placeholder="닉네임, 태그, 이메일로 검색"/>
-			  	<div class="input-group-btn">
-					<button type="submit" class="btn">검색</button>
-			  	</div>
-			</div>
-		  </div>
+<div class="jumbotron-wrapper">
+	<div class="intro-header">
+		<div class="intro-div">
+			<h3>커미션을 쉽게 등록하고 검색할 수 있습니다.</h3>
+			<p>
+			현재 12개의 커미션이 진행중입니다. 
+			</p>
+			
 		</div>
-	</form>
-	<div class="btn-group align-btn" role="group" aria-label="...">
-	  <a class="btn btn-default {{#if newActive }} active {{/if}}" href="/search/new" role="button">최신순</a>
-	  <a class="btn btn-default {{#if viewActive }} active {{/if}}" href="/search/view" role="button">조회순</a>
-	  <a class="btn btn-default {{#if duedateActive }} active {{/if}}" href="/search/duedate" role="button">마감순</a>
+		<form role="form" action="/search/keyword" method="post">  
+			<div class="row">
+			  <div class="col-xs-12">
+				<div class="input-group">
+					<input type="text" name="keyword" class="form-control" placeholder="닉네임, 태그, 이메일로 검색"/>
+				  	<div class="input-group-btn">
+						<button type="submit" class="btn">검색</button>
+				  	</div>
+				</div>
+			  </div>
+			</div>
+		</form>
+		<div class="btn-group align-btn" role="group" aria-label="...">
+		  <a class="btn btn-default {{#if newActive }} active {{/if}}" href="/search/new" role="button">최신순</a>
+		  <a class="btn btn-default {{#if viewActive }} active {{/if}}" href="/search/view" role="button">조회순</a>
+		  <a class="btn btn-default {{#if duedateActive }} active {{/if}}" href="/search/duedate" role="button">마감순</a>
+		</div>
 	</div>
 </div>
 
-<div class="image-card-wrapper">
-	{{#each commitions}}
-		<div class="image-card">
-			<div class="thumbnail-image">
-				{{#each this.thumbnail_files_name}}
-					<div class="thumbnail-image-each" style="background-image: url(http://127.0.0.1:8080/uploads/{{this}})"></div>
-				{{/each}}
+<div class="container">
+	<div class="image-card-wrapper">
+		{{#each commitions}}
+			<div class="image-card">
+				<div class="thumbnail-image">
+					{{#each this.thumbnail_files_name}}
+						<div class="thumbnail-image-each" style="background-image: url(http://127.0.0.1:8080/uploads/{{this}})"></div>
+					{{/each}}
+				</div>
+				<div class="image-detail">
+					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
+					{{#if this.twitterId}}
+						<a href="">{{this.twitterId}}</a>
+					{{else}}
+						<a href="">{{this.twitterId}}</a>
+					{{/if}}
+					<div class="card-view-heart-info">
+						<span class="glyphicon glyphicon-eye-open" aria-hidden="true">{{this.view}}</span>
+						<span class="glyphicon glyphicon-heart" aria-hidden="true">{{this.heart}}</span>
+					</div>
+					<div class="card-tag-info">
+						{{#each this.type_one.tag}}
+							{{#if this}}
+							<a href="">#{{this}}</a>
+							{{/if}}
+						{{/each}}
+						{{#each this.type_two.tag}}
+							{{#if this}}
+							<a href="">#{{this}}</a>
+							{{/if}}
+						{{/each}}
+						{{#each this.type_three.tag}}
+							{{#if this}}
+							<a href="">#{{this}}</a>
+							{{/if}}
+						{{/each}}
+					</div>
+					<div class="card-detail-page">
+						<a href="/commition/{{this._id}}">more</a>
+					</div>
+				</div>
 			</div>
-			<div class="image-detail">
-				<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-				{{#if this.twitterId}}
-					<a href="">{{this.twitterId}}</a>
-				{{else}}
-					<a href="">{{this.twitterId}}</a>
-				{{/if}}
-				<div class="card-view-heart-info">
-					<span class="glyphicon glyphicon-eye-open" aria-hidden="true">{{this.view}}</span>
-					<span class="glyphicon glyphicon-heart" aria-hidden="true">{{this.heart}}</span>
-				</div>
-				<div class="card-tag-info">
-					{{#each this.type_one.tag}}
-						{{#if this}}
-						<a href="">#{{this}}</a>
-						{{/if}}
-					{{/each}}
-					{{#each this.type_two.tag}}
-						{{#if this}}
-						<a href="">#{{this}}</a>
-						{{/if}}
-					{{/each}}
-					{{#each this.type_three.tag}}
-						{{#if this}}
-						<a href="">#{{this}}</a>
-						{{/if}}
-					{{/each}}
-				</div>
-				<div class="card-detail-page">
-					<a href="/commition/{{this._id}}">more</a>
-				</div>
-			</div>
-		</div>
-	{{/each}}
-	{{#if moreLoad}}
-		<div class="scroll">
-			<a href="/scroll/{{align}}/{{lastValue}}">next page</a>
-		</div>	
-	{{/if}}
+		{{/each}}
+		{{#if moreLoad}}
+			<div class="scroll">
+				<a href="/scroll/{{align}}/{{lastValue}}">next page</a>
+			</div>	
+		{{/if}}
+	</div>
 </div>
-
-

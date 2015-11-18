@@ -35,35 +35,36 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">실시간 커미션</a>
+    <div class="jumbotron-wrapper">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">실시간 커미션</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="{{#if active_submit}}active{{/if}}"><a href="/submit" ><span id="submit-button">등록하기</span></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {{#if user}}
+                <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
+                <li class=""><a href="/user/mypage/{{user.nickname}}">{{user.nickname}}</a></li>
+                <li class=""><a href="/user/logout">로그아웃</a></li>
+              {{else}}
+                <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
+                <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
+              {{/if}}
+            </ul>
+          </div>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="{{#if active_submit}}active{{/if}}"><a href="/submit">등록하기</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            {{#if user}}
-              <li class="alarm"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
-              <li class=""><a href="/user/mypage/{{user.nickname}}">{{user.nickname}}</a></li>
-              <li class=""><a href="/user/logout">로그아웃</a></li>
-            {{else}}
-              <li class="{{#if active_login}}active{{/if}}"><a href="/user/login">로그인</a></li>
-              <li class="{{#if active_register}}active{{/if}}"><a href="/user/register">회원가입</a></li>
-            {{/if}}
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+      </nav>
+    </div>
     <!-- alarm div -->
     <div class="bell-alarm-div visuallyhidden bell-alarm-div-hidden">
       <ul>
@@ -85,8 +86,8 @@
       </ul>
     </div>
 
-    <div class="container">
-      <div class="wrapper">
+    <div class="">
+      <div class="">
         {{{messages}}}
         {{#if errors}}
           {{#each errors}}
@@ -96,14 +97,7 @@
         {{/if}}
         {{{body}}}
       </div>
-      
-
-    </div><!-- /.container -->
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- jscroll code -->
+    </div>
     <script type="text/javascript">
       $(document).ready(function(){
         // socket.io connection

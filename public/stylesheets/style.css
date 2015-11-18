@@ -1,6 +1,73 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.navbar{
+	margin-bottom: 0px;
+
+}
+
+.nav>li>a{
+	margin: 10px 15px;
+	padding: 4px 12px;
+}
+
+.navbar-default{
+	background-color: transparent;
+    border-color: transparent;
+    border-width: 0px;
+	color : #fff;
+	box-shadow: none;
+}
+
+.navbar-default .navbar-brand:hover{
+	color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
+	color: #fff;
+}
+
+
+.navbar-default #submit-button{
+	border-color: #fff;
+	padding: 4px 12px 4px 12px;
+	border: 1px solid;
+	border-radius: 2px;
+}
+
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+
+.jumbotron-wrapper{
+	background: url("../images/test.jpg");
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center bottom;
+    padding-bottom: 20px;
+}
+
+.jumbotron-wrapper h3{
+	margin-top: 0;
+	font-weight: 400;
+    font-size: 20px;
+    color: #fff;
+}
+
+.jumbotron-wrapper p{
+    color : #fff;
+    font-size: 18px;
+    line-height: 3;
+}
+
+.jumbotron-wrapper .intro-header{
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 a {
@@ -34,12 +101,11 @@ a {
 }
 
 .wrapper {
-	margin: 30px 50px 0 50px;
+	margin: 0px 50px 0 50px;
 }
 
 .intro-div{
 	display: block;
-	margin-top: 70px;
 	margin-bottom: 20px;
 	text-align: center;
 }
