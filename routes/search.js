@@ -16,7 +16,8 @@ router.get('/new', function(req, res, next) {
       align : 'new',
       newActive : 'active',
       lastValue : commitions[commitions.length-1].time,
-      moreLoad : (commitions.length > 10 ? true : false)
+      moreLoad : (commitions.length > 10 ? true : false),
+      isIndex : true
     }
     res.render('index', options);
   });
@@ -32,7 +33,8 @@ router.get('/view', function(req, res, next) {
       align : 'view',
       viewActive : 'active',
       lastValue : commitions[commitions.length-1].view,
-      moreLoad : (commitions.length > 10 ? true : false)
+      moreLoad : (commitions.length > 10 ? true : false),
+      isIndex : true
     }
     res.render('index', options);
   });
@@ -48,7 +50,8 @@ router.get('/duedate', function(req, res, next) {
       align : 'duedate',
       duedateActive : 'active',
       lastValue : commitions[commitions.length-1].end_time,
-      moreLoad : (commitions.length > 10 ? true : false)
+      moreLoad : (commitions.length > 10 ? true : false),
+      isIndex : true
     }
     res.render('index', options);
   });
@@ -99,7 +102,8 @@ router.get('/:keyword/new/', function(req, res, next) {
                   lastValue : 0,
                   moreLoad : false,
                   keyword : keyword,
-                  urlKeyword : req.params.keyword
+                  urlKeyword : req.params.keyword,
+                  isIndex : true
                 }
         res.render('index', options);
       } else{
@@ -110,7 +114,8 @@ router.get('/:keyword/new/', function(req, res, next) {
           lastValue : commitions[commitions.length-1].time || 0,
           moreLoad : (commitions.length > 10 ? true : false),
           keyword : keyword,
-          urlKeyword : req.params.keyword
+          urlKeyword : req.params.keyword,
+          isIndex : true
         }
         res.render('results', options);
       }
@@ -158,7 +163,8 @@ router.get('/:keyword/view/', function(req, res, next) {
                   lastValue : 0,
                   moreLoad : false,
                   keyword : keyword,
-                  urlKeyword : req.params.keyword
+                  urlKeyword : req.params.keyword,
+                  isIndex : true
                 }
         res.render('index', options);
       } else{
@@ -169,7 +175,8 @@ router.get('/:keyword/view/', function(req, res, next) {
           lastValue : commitions[commitions.length-1].time || 0,
           moreLoad : (commitions.length > 10 ? true : false),
           keyword : keyword,
-          urlKeyword : req.params.keyword
+          urlKeyword : req.params.keyword,
+          isIndex : true
         }
         res.render('results', options);
       }
@@ -217,7 +224,8 @@ router.get('/:keyword/duedate/', function(req, res, next) {
                   lastValue : 0,
                   moreLoad : false,
                   keyword : keyword,
-                  urlKeyword : req.params.keyword
+                  urlKeyword : req.params.keyword,
+                  isIndex : true
                 }
         res.render('index', options);
       } else{
@@ -228,7 +236,8 @@ router.get('/:keyword/duedate/', function(req, res, next) {
           lastValue : commitions[commitions.length-1].time || 0,
           moreLoad : (commitions.length > 10 ? true : false),
           keyword : keyword,
-          urlKeyword : req.params.keyword
+          urlKeyword : req.params.keyword,
+          isIndex : true
         }
         res.render('results', options);
       }
