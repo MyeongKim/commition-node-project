@@ -45,31 +45,7 @@
 		</div>
 		<div class="my-order-list-card-wrapper">
 			<div id="request-data-container"></div>
-			<div id="pagination-container">
-				{{!-- {{#pagination requestAllArrayLength}}
-				<nav>
-					<ul class="pagination">
-						{{#unless noArrow}}
-							<li class="previousPage">
-								<a href="#" aria-label="Previous">
-								<span aria-hidden="true">&laquo;</span>
-								</a>
-							</li>
-						{{/unless}}
-						{{#each pages}}
-							<li class="pageNumber"><a id="num{{page}}">{{page}}</a></li>
-						{{/each}}
-						{{#unless noArrow}}
-							<li class="nextPage">
-								<a href="#" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-								</a>
-							</li>
-						{{/unless}}
-					</ul>
-				</nav>
-				{{/pagination}} --}}
-			</div>
+			<div id="request-pagination-container"></div>
 		</div>
 	</div>
 </div>
@@ -81,116 +57,15 @@
 	<div class="my-commition-list-body">
 		<div class="my-commition-list-buttons">
 			<div class="btn-group" role="group" aria-label="...">
-				<button type="button" class="btn btn-default">전체</button>
-				<button type="button" class="btn btn-default">내 커미션</button>
-				<button type="button" class="btn btn-default">관심 커미션</button>
+				<button type="button" id="commitionAllButton" class="btn btn-default">전체</button>
+				<button type="button" id="commitionMineButton" class="btn btn-default">내 커미션</button>
+				<button type="button" id="commitionHeartedButton" class="btn btn-default">관심 커미션</button>
 			</div>
 		</div>
 		<div class="my-commition-list-card-wrapper">
 			<p>지금까지 3개의 커미션을 등록하셨습니다.</p>
-			<div class="image-card">
-				<div class="thumbnail-image">
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>
-				</div>
-				<div class="image-detail">
-					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-					<a href="">누코</a>
-					<div class="card-view-heart-info">
-						<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-						<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-					</div>
-					<div class="card-tag-info">
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-					</div>
-					<div class="card-detail-page">
-						<a href="">more</a>
-					</div>
-				</div>
-			</div>
-			<div class="image-card">
-				<div class="thumbnail-image">
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>
-				</div>
-				<div class="image-detail">
-					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-					<a href="">누코</a>
-					<div class="card-view-heart-info">
-						<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-						<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-					</div>
-					<div class="card-tag-info">
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-					</div>
-					<div class="card-detail-page">
-						<a href="">more</a>
-					</div>
-				</div>
-			</div>
-			<div class="image-card">
-				<div class="thumbnail-image">
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>
-					<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>
-				</div>
-				<div class="image-detail">
-					<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">
-					<a href="">누코</a>
-					<div class="card-view-heart-info">
-						<span class="glyphicon glyphicon-eye-open" aria-hidden="true">123</span>
-						<span class="glyphicon glyphicon-heart" aria-hidden="true">23</span>
-					</div>
-					<div class="card-tag-info">
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-						<a href="">#태그</a>
-					</div>
-					<div class="card-detail-page">
-						<a href="">more</a>
-					</div>
-				</div>
-			</div>
-			<nav>
-				<ul class="pagination">
-					<li>
-						<a href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
-						<a href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
+			<div id="commition-data-container"></div>
+			<div id="commition-pagination-container"></div>
 		</div>
 	</div>
 </div>
@@ -224,7 +99,7 @@
 
 			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : "requestAllButton" , pageNum : 1});
 
-			paginationContext({{requestAllArrayLength}});
+			paginationContext({{requestAllArrayLength}}, 'request');
 		});
 
 		$('#requestReceiveButton').click(function(e){
@@ -236,7 +111,7 @@
 
 			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : "requestReceiveButton" , pageNum : 1});
 
-			paginationContext({{requestReceiveArrayLength}});
+			paginationContext({{requestReceiveArrayLength}}, 'request');
 
 		});
 
@@ -249,62 +124,71 @@
 
 			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : "requestSendButton" , pageNum : 1});
 
-			paginationContext({{requestSendArrayLength}});
+			paginationContext({{requestSendArrayLength}}, 'request');
 
 		});
 	
-		$(document).on('click', '.pagination li.previousPage', function(e){
+		$(document).on('click', '#request-pagination-container .pagination li.previousPage', function(e){
 			currentPage = currentPage-1;
-			pageNumberPreviousDisplay(currentPage);
+			pageNumberPreviousDisplay(currentPage, 'request-pagination-container');
 		});
 
-		$(document).on('click', '.pagination li.nextPage', function(e){
+		$(document).on('click', '#request-pagination-container .pagination li.nextPage', function(e){
 			currentPage = currentPage+1;
-			pageNumberNextDisplay(currentPage);
+			pageNumberNextDisplay(currentPage, 'request-pagination-container');
 		});
 
-		function pageNumberNextDisplay(currentPage){
-			if( currentPage % 5 === 1){
-				$('li.pageNumber').hide();
-				$('li.pageNumber:eq('+(currentPage-1)+')').show();
-				$('li.pageNumber:eq('+(currentPage)+')').show();
-				$('li.pageNumber:eq('+(currentPage+1)+')').show();
-				$('li.pageNumber:eq('+(currentPage+2)+')').show();
-				$('li.pageNumber:eq('+(currentPage+3)+')').show();
+		function pageNumberNextDisplay(num, id){
+			if( num % 5 === 1){
+				$('#'+id+' li.pageNumber').hide();
+				$('#'+id+' li.pageNumber:eq('+(num-1)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num+1)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num+2)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num+3)+')').show();
 			}
 		};
 
-		function pageNumberPreviousDisplay(currentPage){
-			if( currentPage % 5 === 0){
-				$('li.pageNumber').hide();
-				$('li.pageNumber:eq('+(currentPage-1)+')').show();
-				$('li.pageNumber:eq('+(currentPage-2)+')').show();
-				$('li.pageNumber:eq('+(currentPage-3)+')').show();
-				$('li.pageNumber:eq('+(currentPage-4)+')').show();
-				$('li.pageNumber:eq('+(currentPage-5)+')').show();
+		function pageNumberPreviousDisplay(num, id){
+			if( num % 5 === 0){
+				$('#'+id+' li.pageNumber').hide();
+				$('#'+id+' li.pageNumber:eq('+(num-1)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num-2)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num-3)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num-4)+')').show();
+				$('#'+id+' li.pageNumber:eq('+(num-5)+')').show();
 			}
 		};
 
-		function pageContentRefresh(currentPage){
-				$('.pagination li.previousPage').show();
-				$('.pagination li.nextPage').show();
+		function pageContentRefresh(num, id){
+			var lastPage;
+			if (id === 'request-pagination-container'){
+				lastPage = requestLastPage;
 
-				if(currentPage == 1){
-					$('.pagination li.previousPage').hide();
-				}
+			}else{
+				lastPage = commitionLastPage;
+			}
 
-				if(currentPage == lastPage){
-					$('.pagination li.nextPage').hide();
-				}
+			$('#'+id+' .pagination li.previousPage').show();
+			$('#'+id+' .pagination li.nextPage').show();
+
+			if(num == 1){
+				$('#'+id+' .pagination li.previousPage').hide();
+			}
+
+			if(num == lastPage){
+				$('#'+id+' .pagination li.nextPage').hide();
+			}
 		};
 
-		$(document).on('click','li.pageNumber a',function(e){
+		$(document).on('click','#request-pagination-container li.pageNumber a',function(e){
 			currentPage = e.target.id.substr(3);
-			$('li.pageNumber').removeClass('active');
-			$('li.pageNumber:eq('+(currentPage-1)+')').addClass('active');
+			$('#request-pagination-container li.pageNumber').removeClass('active');
+			$('#request-pagination-container li.pageNumber:eq('+(currentPage-1)+')').addClass('active');
 
 			var requestAlign = $('.my-order-list-buttons button.active').attr('id');
 			var pageNum = $(e.target).text();
+			pageContentRefresh(pageNum, 'request-pagination-container');
 			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : requestAlign , pageNum : pageNum});
 		});
 
@@ -324,14 +208,14 @@
 							<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">\
 							<a href="/user/mypage/'+element.to.nickname+'">'+element.to.nickname+'</a>\
 							<div>'+element.request_desc+'</div>\
+						<div class="order-desc-more"><a href="#">more</a></div>\
 						</div>\
-						<p><span class="order-desc-more"><a href="#">more</a></span></p>\
 					</div>'
 			}
 			$( "#request-data-container" ).html(myString);
 		});
 
-		function paginationContext(length){
+		function paginationContext(length, type){
 			var totalPage = Math.ceil(length / 5);
 			var myString = "";
 			myString += '<nav><ul class="pagination">';
@@ -355,17 +239,130 @@
 				</li>'
 			}
 			myString += '</ul></nav>'
-			$( "#pagination-container" ).html(myString);
+
+			if( type === 'request' ){
+				$( "#request-pagination-container" ).html(myString);
+			}else if (type === 'commition'){
+				$( "#commition-pagination-container" ).html(myString);
+			}
+			
 		};
 
 		function init(){
 			var currentPage = 1;
 			var requestType = 'all';
-			paginationContext({{requestAllArrayLength}})
-			var lastPage = $('li.pageNumber a').last().attr('id').substr(3);
+			paginationContext({{requestAllArrayLength}}, 'requeset')
+			var requestLastPage = $('#request-pagination-container li.pageNumber a').last().attr('id').substr(3);
 			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : 'requestAllButton' , pageNum : 1});
 		};
 
 		init();
+
+		// get commition
+
+		$('#commitionAllButton').click(function(e){
+			$('.my-commition-list-buttons button').removeClass('active');
+			$(e.target).addClass('active');
+
+			commitionCurrentPage = 1;
+
+			socket.emit('getCommitionData', { nickname: "{{data.nickname}}", type : "commitionAllButton" , pageNum : 1});
+
+			paginationContext({{commitionAllArrayLength}}, 'commition');
+		});
+
+		$('#commitionMineButton').click(function(e){
+			$('.my-commition-list-buttons button').removeClass('active');
+			$(e.target).addClass('active');
+
+			commitionCurrentPage = 1;
+
+			socket.emit('getCommitionData', { nickname: "{{data.nickname}}", type : "commitionMineButton" , pageNum : 1});
+
+			paginationContext({{commitionMineArrayLength}}, 'commition');
+
+		});
+
+		$('#commitionHeartedButton').click(function(e){
+			$('.my-commition-list-buttons button').removeClass('active');
+			$(e.target).addClass('active');
+
+			commitionCurrentPage = 1;
+
+			socket.emit('getCommitionData', { nickname: "{{data.nickname}}", type : "commitionHeartedButton" , pageNum : 1});
+
+			paginationContext({{commitionHeartedArrayLength}}, 'commition');
+
+		});
+	
+		$(document).on('click', '#commition-pagination-container .pagination li.previousPage', function(){
+			commitionCurrentPage = commitionCurrentPage-1;
+			pageNumberPreviousDisplay(commitionCurrentPage, 'commition-pagination-container');
+		});
+
+		$(document).on('click', '#commition-pagination-container .pagination li.nextPage', function(){
+			commitionCurrentPage = commitionCurrentPage+1;
+			pageNumberNextDisplay(commitionCurrentPage, 'commition-pagination-container');
+		});
+
+		$(document).on('click','#commition-pagination-container li.pageNumber a',function(e){
+			commitionCurrentPage = e.target.id.substr(3);
+			$('#commition-pagination-container li.pageNumber').removeClass('active');
+			$('#commition-pagination-container li.pageNumber:eq('+(commitionCurrentPage-1)+')').addClass('active');
+
+			var commitionAlign = $('.my-commition-list-buttons button.active').attr('id');
+			var pageNum = $(e.target).text();
+			pageContentRefresh(pageNum, 'commition-pagination-container');
+			socket.emit('getCommitionData', { nickname: "{{data.nickname}}", type : commitionAlign , pageNum : pageNum});
+		});
+
+		socket.on('getCommitionData', function (data) {
+			console.log(data);
+			var myString = "";
+			var dataLength = data.commitionArray.length-1;
+			for(var i = 0 ; i < dataLength ; i++){
+				var element = data.requestArray[i];
+				myString += '<div class="image-card">\
+					<div class="thumbnail-image">\
+						<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>\
+						<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/taj-mahal.jpg)"></div>\
+						<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/ibiza.jpg)"></div>\
+					</div>\
+					<div class="image-detail">\
+						<img src="http://img2.wikia.nocookie.net/__cb20130607025329/creepypasta/images/3/38/Avatar-blank.jpg" alt="..." class="img-circle">\
+						<a href="">'+element.user.nickname+'</a>\
+						<div class="card-view-heart-info">\
+							<span class="glyphicon glyphicon-eye-open" aria-hidden="true">'+element.view+'</span>\
+							<span class="glyphicon glyphicon-heart" aria-hidden="true">'+element.heart+'</span>\
+						</div>\
+						<div class="card-tag-info">'
+				element.type_one.tag.forEach(function(e, i){
+					myString += '<a href="">#'+e+'</a>'
+				});
+				element.type_two.tag.forEach(function(e, i){
+					myString += '<a href="">#'+e+'</a>'
+				});
+				element.type_three.tag.forEach(function(e, i){
+					myString += '<a href="">#'+e+'</a>'
+				});
+				myString += '</div>\
+							<div class="card-detail-page">\
+								<a href="/commition/'+element.id+'">more</a>\
+							</div>\
+						</div>\
+					</div>'
+						
+			}
+			$( "#commition-data-container" ).html(myString);
+		});
+
+		function commitionInit(){
+			var commitionCurrentPage = 1;
+			paginationContext({{CommitionAllArrayLength}}, 'commition')
+			var commitionLastPage = $('#commition-pagination-container li.pageNumber a').last().attr('id').substr(3);
+			socket.emit('getCommitionData', { nickname: "{{data.nickname}}", type : 'commitionAllButton' , pageNum : 1});
+		};
+
+		commitionInit();
 	});
 </script>

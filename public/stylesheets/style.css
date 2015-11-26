@@ -462,7 +462,7 @@ ul.success li{
 }
 
 .my-order-list .my-order-list-body .my-order-list-card-wrapper{
-	margin: 20px;
+	margin: 40px 20px 20px 20px;
 	clear: both;
 }
 
@@ -472,7 +472,7 @@ ul.success li{
 }
 
 .my-order-list .my-order-list-body .my-order-list-card{
-	padding-top: 10px;
+	margin-top: 10px;
 }
 
 .my-order-list .my-order-list-body .my-order-list-card:hover{
@@ -494,14 +494,15 @@ ul.success li{
     margin-right: 5px;
 }
 
-.my-order-list .my-order-list-body .my-order-list-card span.order-desc-more{
+.my-order-list .my-order-list-body .my-order-list-card .order-desc-more{
 	font-size: 1.2em;
+	text-align: end;
+
 }
 
 
 .my-order-list .my-order-list-body .my-order-list-card .my-order-list-nickname {
 	padding-top: 10px;
-	padding-bottom: 10px;
 }
 
 .my-order-list .my-order-list-body nav {

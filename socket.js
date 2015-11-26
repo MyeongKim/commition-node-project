@@ -195,5 +195,70 @@ module.exports = {
                 }
             )
         }
+    },
+    getCommitionData : function(nickname, type, pageNum, mycallback){
+        if( type === "commitionMineButton"){
+            var commitionMineArray = [];
+            User.findOne({nickname : nickname}).exec(function(err, user){
+                if (err) throw err;
+                Commition.find({ user : user._id })
+                        .populate('user')
+                        .sort('-time')
+                        .skip((pageNum-1)*5)
+                        .limit(5)
+                        .exec(function(err, commitionMine){
+                            if (err) throw err;
+                            commitionMineArray = commitionMine;
+                            mycallback(requestSendArray);
+                        });
+            });
+        }else if( type === "commitionHeartedButton"){
+            var commitionHeartedArray = [];
+            User.findOne({nickname : nickname}).populate('hearted').exec(function(err, user){
+                if (err) throw err;
+                commitionHeartedArray = user.hearted;
+                commitionHeartedArray = commitionHeartedArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
+                mycallback(commitionHeartedArray);
+            });
+        }else {
+            async.waterfall([
+                function(callback) {
+                    User.findOne({nickname : nickname}).populate('hearted').exec(function(err, user){
+                        if (err) throw err;
+                        callback(null, user);
+                    });
+                },
+                function(user, callback) {
+                    var commitionMineArray = [];
+                    Commition.find({ user : user._id })
+                            .populate('user')
+                            .sort('-time')
+                            .skip((pageNum-1)*5)
+                            .limit(5)
+                            .exec(function(err, commitionMine){
+                                if (err) throw err;
+                                commitionMineArray = commitionMine;
+                                callback(null, user, commitionMineArray);
+                            });
+                },
+                function(user, commitionMineArray, callback) {
+                    var commitionHeartedArray = [];
+                    commitionHeartedArray = user.hearted;
+                    commitionHeartedArray = commitionHeartedArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
+                    callback(null, user, commitionMineArray, commitionHeartedArray);
+                },
+                function(user, commitionMineArray, commitionHeartedArray, callback){
+                    var commitionAllArray = commitionHeartedArray.concat(commitionMineArray);
+                    commitionAllArray = commitionAllArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
+                    mycallback(commitionAllArray);
+                    callback(null);
+                }
+            ], function (err) {
+                if (err) throw err;
+                }
+            )
+
     }
+}
+
 };

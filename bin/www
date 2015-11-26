@@ -53,6 +53,12 @@ io.on('connection', function (socket) {
         socket.emit('getRequestData', {requestArray : requestArray});
       });
     });
+    socket.on('getCommitionData', function(data) {
+      socketFunction.getCommitionData(data.nickname, data.type, data.pageNum, function(commitionArray){
+        // console.log(commitionArray);
+        socket.emit('getCommitionData', {commitionArray : commitionArray});
+      });
+    });
   });
 
 /**
