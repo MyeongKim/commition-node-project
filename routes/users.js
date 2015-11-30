@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/mypage/:nickname', function(req,res,next){
 	var isFollow, isMine;
-	var CommitionAllArrayLength, commitionHeartedArrayLength, commitionMineArrayLength;
+	var commitionAllArrayLength, commitionHeartedArrayLength, commitionMineArrayLength;
 	async.waterfall([
 		function(callback) {
 			User.findOne({nickname : req.params.nickname}).populate('hearted').exec(function(err, user){
@@ -78,6 +78,7 @@ router.get('/mypage/:nickname', function(req,res,next){
 			Commition.find({ user : user._id}).exec(function(err, doc){
 				if (err) throw err;
 				commitionMineArrayLength = doc.length;
+				commitionAllArrayLength = commitionMineArrayLength + commitionHeartedArrayLength;
 				callback(null, user, requestSendArray, requestReceiveArray);
 			})
 		}
@@ -96,7 +97,7 @@ router.get('/mypage/:nickname', function(req,res,next){
 			requestAllArrayLength : requestAllArray.length,
 			requestReceiveArrayLength : requestReceiveArray.length,
 			requestSendArrayLength : requestSendArray.length,
-			CommitionAllArrayLength : commitionHeartedArrayLength+commitionMineArrayLength,
+			commitionAllArrayLength : commitionAllArrayLength,
 			commitionHeartedArrayLength : commitionHeartedArrayLength,
 			commitionMineArrayLength : commitionMineArrayLength,
 			helpers : {

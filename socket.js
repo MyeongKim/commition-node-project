@@ -28,11 +28,17 @@ module.exports = {
                     console.log(data);
                 });
         });
+        User.update({_id : userId}, { $addToSet : {"hearted" : csId}}).exec(function(err, data){
+            if (err) throw err;
+        });
     },
     cancelHeartPlus : function (csId, userId) {
         Commition.update({_id : csId}, { $pull: {"fans": userId}}, function(err,data){
             if (err) return next(err);
             console.log("pull success");
+        });
+        User.update({_id : userId}, { $pull : {"hearted" : csId}}).exec(function(err, data){
+            if (err) throw err;
         });
     },
     viewPlus : function(csId){
@@ -209,21 +215,28 @@ module.exports = {
                         .exec(function(err, commitionMine){
                             if (err) throw err;
                             commitionMineArray = commitionMine;
-                            mycallback(requestSendArray);
+                            mycallback(commitionMineArray);
                         });
             });
         }else if( type === "commitionHeartedButton"){
             var commitionHeartedArray = [];
-            User.findOne({nickname : nickname}).populate('hearted').exec(function(err, user){
+            User.findOne({nickname : nickname}).exec(function(err, user){
                 if (err) throw err;
-                commitionHeartedArray = user.hearted;
-                commitionHeartedArray = commitionHeartedArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
-                mycallback(commitionHeartedArray);
+                Commition.find({ fans : user._id })
+                        .populate('user')
+                        .sort('-time')
+                        .skip((pageNum-1)*5)
+                        .limit(5)
+                        .exec(function(err, commitionHearted){
+                            if (err) throw err;
+                            commitionHeartedArray = commitionHearted;
+                            mycallback(commitionHeartedArray);
+                        });
             });
         }else {
             async.waterfall([
                 function(callback) {
-                    User.findOne({nickname : nickname}).populate('hearted').exec(function(err, user){
+                    User.findOne({nickname : nickname}).exec(function(err, user){
                         if (err) throw err;
                         callback(null, user);
                     });
@@ -243,12 +256,28 @@ module.exports = {
                 },
                 function(user, commitionMineArray, callback) {
                     var commitionHeartedArray = [];
-                    commitionHeartedArray = user.hearted;
-                    commitionHeartedArray = commitionHeartedArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
-                    callback(null, user, commitionMineArray, commitionHeartedArray);
+                    Commition.find({ fans : user._id })
+                        .populate('user')
+                        .sort('-time')
+                        .skip((pageNum-1)*5)
+                        .limit(5)
+                        .exec(function(err, commitionHearted){
+                            if (err) throw err;
+                            commitionHeartedArray = commitionHearted;
+                            callback(null, user, commitionMineArray, commitionHeartedArray);
+                        });
                 },
                 function(user, commitionMineArray, commitionHeartedArray, callback){
-                    var commitionAllArray = commitionHeartedArray.concat(commitionMineArray);
+                    var commitionAllArray = [];
+                    commitionAllArray = commitionMineArray.concat(commitionHeartedArray);
+
+                    for( var i = 0 ; i < commitionAllArray.length ; i++){
+                        for(var j = i+1 ; j < commitionAllArray.length ; j++){
+                            if(commitionAllArray[i]._id.toString() == commitionAllArray[j]._id.toString()){
+                                commitionAllArray.splice(j,1);
+                            }
+                        }
+                    }
                     commitionAllArray = commitionAllArray.sort(function(a,b){return b.time - a.time}).slice((pageNum-1)*5, (pageNum-1)*5+5);
                     mycallback(commitionAllArray);
                     callback(null);

@@ -63,7 +63,6 @@
 			</div>
 		</div>
 		<div class="my-commition-list-card-wrapper">
-			<p>지금까지 3개의 커미션을 등록하셨습니다.</p>
 			<div id="commition-data-container"></div>
 			<div id="commition-pagination-container"></div>
 		</div>
@@ -251,11 +250,12 @@
 		function init(){
 			var currentPage = 1;
 			var requestType = 'all';
-			paginationContext({{requestAllArrayLength}}, 'requeset')
-			var requestLastPage = $('#request-pagination-container li.pageNumber a').last().attr('id').substr(3);
+			paginationContext({{requestAllArrayLength}}, 'request')
+			requestLastPage = $('#request-pagination-container li.pageNumber a').last().attr('id').substr(3);
 			socket.emit('getRequestData', { nickname: "{{data.nickname}}", type : 'requestAllButton' , pageNum : 1});
 		};
 
+		var requestLastPage, commitionLastPage;
 		init();
 
 		// get commition
@@ -318,10 +318,10 @@
 
 		socket.on('getCommitionData', function (data) {
 			console.log(data);
-			var myString = "";
-			var dataLength = data.commitionArray.length-1;
+			var dataLength = data.commitionArray.length;
+			var myString = '<p>'+dataLength+'개의 커미션이 검색되었습니다.</p>';
 			for(var i = 0 ; i < dataLength ; i++){
-				var element = data.requestArray[i];
+				var element = data.commitionArray[i];
 				myString += '<div class="image-card">\
 					<div class="thumbnail-image">\
 						<div class="thumbnail-image-each" style="background-image: url(http://demosthenes.info/assets/images/austin-fireworks.jpg)"></div>\
@@ -358,7 +358,7 @@
 
 		function commitionInit(){
 			var commitionCurrentPage = 1;
-			paginationContext({{CommitionAllArrayLength}}, 'commition')
+			paginationContext({{commitionAllArrayLength}}, 'commition')
 			var commitionLastPage = $('#commition-pagination-container li.pageNumber a').last().attr('id').substr(3);
 			socket.emit('getCommitionData', { nickname: "{{data.nickname}}", type : 'commitionAllButton' , pageNum : 1});
 		};
